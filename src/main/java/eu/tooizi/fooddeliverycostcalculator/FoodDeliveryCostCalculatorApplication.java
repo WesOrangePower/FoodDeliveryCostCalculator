@@ -1,6 +1,7 @@
 package eu.tooizi.fooddeliverycostcalculator;
 
 import eu.tooizi.fooddeliverycostcalculator.services.DatabaseSeeder;
+import eu.tooizi.fooddeliverycostcalculator.services.WeatherStatusUpdateService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,14 +19,19 @@ public class FoodDeliveryCostCalculatorApplication implements CommandLineRunner
     }
 
     private final DatabaseSeeder databaseSeeder;
-    public FoodDeliveryCostCalculatorApplication(DatabaseSeeder databaseSeeder)
+    private final WeatherStatusUpdateService weatherStatusUpdateService;
+
+    public FoodDeliveryCostCalculatorApplication(DatabaseSeeder databaseSeeder,
+                                                 WeatherStatusUpdateService weatherStatusUpdateService)
     {
         this.databaseSeeder = databaseSeeder;
+        this.weatherStatusUpdateService = weatherStatusUpdateService;
     }
 
     @Override
     public void run(String... args) throws Exception
     {
         databaseSeeder.seed();
+        weatherStatusUpdateService.updateWeatherStatus();
     }
 }

@@ -1,10 +1,7 @@
 package eu.tooizi.fooddeliverycostcalculator.services;
 
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.*;
-import eu.tooizi.fooddeliverycostcalculator.repositories.PhenomenonCategoryRepository;
-import eu.tooizi.fooddeliverycostcalculator.repositories.RegionRepository;
-import eu.tooizi.fooddeliverycostcalculator.repositories.VehicleTypeRepository;
-import eu.tooizi.fooddeliverycostcalculator.repositories.WeatherPhenomenonRepository;
+import eu.tooizi.fooddeliverycostcalculator.repositories.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,16 +13,19 @@ public class DatabaseSeeder
     private final VehicleTypeRepository vehicleTypeRepository;
     private final WeatherPhenomenonRepository weatherPhenomenonRepository;
     private final PhenomenonCategoryRepository phenomenonCategoryRepository;
+    private final RegionalBaseFeeRepository regionalBaseFeeRepository;
 
     public DatabaseSeeder(RegionRepository regionRepository,
                           VehicleTypeRepository vehicleTypeRepository,
                           WeatherPhenomenonRepository weatherPhenomenonRepository,
-                          PhenomenonCategoryRepository phenomenonCategoryRepository)
+                          PhenomenonCategoryRepository phenomenonCategoryRepository,
+                          RegionalBaseFeeRepository regionalBaseFeeRepository)
     {
         this.regionRepository = regionRepository;
         this.vehicleTypeRepository = vehicleTypeRepository;
         this.weatherPhenomenonRepository = weatherPhenomenonRepository;
         this.phenomenonCategoryRepository = phenomenonCategoryRepository;
+        this.regionalBaseFeeRepository = regionalBaseFeeRepository;
     }
 
     /**
@@ -48,40 +48,40 @@ public class DatabaseSeeder
         Region tallinn = new Region();
         tallinn.setName("Tallinn");
         tallinn.setWeatherStationName("Tallinn-Harku");
-        tallinn.setRegionalBaseFees(makeRegionalBaseFees(3d, vehicles));
 
         Region tartu = new Region();
         tartu.setName("Tartu");
         tartu.setWeatherStationName("Tartu-Tõravere");
-        tartu.setRegionalBaseFees(makeRegionalBaseFees(2.5, vehicles));
 
         Region paernu = new Region();
         paernu.setName("Pärnu");
         paernu.setWeatherStationName("Pärnu");
-        paernu.setRegionalBaseFees(makeRegionalBaseFees(2d, vehicles));
 
         regionRepository.saveAll(List.of(tallinn, tartu, paernu));
+        makeRegionalBaseFees(3d, vehicles, tallinn);
+        makeRegionalBaseFees(2.5, vehicles, tartu);
+        makeRegionalBaseFees(2d, vehicles, paernu);
 
         PhenomenonCategory snow = new PhenomenonCategory();
-        snow.setName("Snow");
+        snow.setName(PhenomenonCategory.SNOW);
 
         PhenomenonCategory sleet = new PhenomenonCategory();
-        sleet.setName("Sleet");
+        sleet.setName(PhenomenonCategory.SLEET);
 
         PhenomenonCategory rain = new PhenomenonCategory();
-        rain.setName("Rain");
+        rain.setName(PhenomenonCategory.RAIN);
 
         PhenomenonCategory glaze = new PhenomenonCategory();
-        glaze.setName("Glaze");
+        glaze.setName(PhenomenonCategory.GLAZE);
 
         PhenomenonCategory hail = new PhenomenonCategory();
-        hail.setName("Hail");
+        hail.setName(PhenomenonCategory.HAIL);
 
         PhenomenonCategory thunder = new PhenomenonCategory();
-        thunder.setName("Thunder");
+        thunder.setName(PhenomenonCategory.THUNDER);
 
         PhenomenonCategory clearOrOther = new PhenomenonCategory();
-        clearOrOther.setName("Clear or other");
+        clearOrOther.setName(PhenomenonCategory.DEFAULT_NAME);
 
         phenomenonCategoryRepository.saveAll(List.of(snow, sleet, rain, glaze, hail, thunder, clearOrOther));
 
@@ -124,17 +124,16 @@ public class DatabaseSeeder
         }
     }
 
-    private Collection<RegionalBaseFee> makeRegionalBaseFees(double bikeFee, List<VehicleType> vehicles)
+    private void makeRegionalBaseFees(double bikeFee, List<VehicleType> vehicles, Region region)
     {
-        List<RegionalBaseFee> fees = new ArrayList<>();
         for (int i = 0; i < vehicles.size(); i++)
         {
             RegionalBaseFee fee = new RegionalBaseFee();
             fee.setVehicleType(vehicles.get(i));
             fee.setBaseFee(bikeFee + (i * .5));
-            fees.add(fee);
+            fee.setRegion(region);
+            regionalBaseFeeRepository.save(fee);
         }
-        return fees;
     }
 
 }

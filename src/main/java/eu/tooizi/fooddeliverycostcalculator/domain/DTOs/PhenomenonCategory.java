@@ -9,6 +9,13 @@ import java.util.UUID;
 @Entity
 public class PhenomenonCategory
 {
+    public static final String DEFAULT_NAME = "Clear or unknown";
+    public static final String SLEET = "sleet";
+    public static final String GLAZE = "glaze";
+    public static final String THUNDER = "thunder";
+    public static final String HAIL = "hail";
+    public static final String RAIN = "rain";
+    public static final String SNOW = "snow";
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)

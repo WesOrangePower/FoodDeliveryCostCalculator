@@ -1,25 +1,17 @@
 package eu.tooizi.fooddeliverycostcalculator.domain.responses;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatusCode;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DeliveryFeeResponse
 {
-    private double deliveryFee;
-
-    public DeliveryFeeResponse()
-    {
-    }
-
-    public DeliveryFeeResponse(double deliveryFee)
-    {
-        this.deliveryFee = deliveryFee;
-    }
-
-    public double getDeliveryFee()
-    {
-        return deliveryFee;
-    }
-
-    public void setDeliveryFee(double deliveryFee)
-    {
-        this.deliveryFee = deliveryFee;
-    }
+    double deliveryFee;
+    boolean errored;
+    HttpStatusCode responseCode;
+    String errorMessage;
 }

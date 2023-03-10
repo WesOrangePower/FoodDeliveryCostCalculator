@@ -3,6 +3,7 @@ package eu.tooizi.fooddeliverycostcalculator.services;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.Region;
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherConditions;
+import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherPhenomenon;
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.weather.Observations;
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.weather.Station;
 import eu.tooizi.fooddeliverycostcalculator.repositories.RegionRepository;
@@ -86,10 +87,14 @@ public class WeatherStatusUpdateService
         for (Station station : stationsOfInterest)
         {
             WeatherConditions conditions = new WeatherConditions();
+            WeatherPhenomenon phenomenon = weatherPhenomenonRepository.findByName(station.getPhenomenon())
+                    .orElse(weatherPhenomenonRepository.findByName("Clear")
+                            .orElseThrow(() -> new IllegalStateException("Could not find clear weather phenomenon. Is the database corrupted?"))
+                    );
 
             conditions.setRegion(stationNames.get(station.getName()));
             conditions.setWindSpeedMps(station.getWindspeed());
-            conditions.setWeatherPhenomenon(weatherPhenomenonRepository.findByName(station.getPhenomenon()).orElse(null));
+            conditions.setWeatherPhenomenon(phenomenon);
             conditions.setTemperatureCelsius(station.getAirtemperature());
             conditions.setTimestamp(timestamp);
             conditions.setStationWmoCode(station.getWmocode());
