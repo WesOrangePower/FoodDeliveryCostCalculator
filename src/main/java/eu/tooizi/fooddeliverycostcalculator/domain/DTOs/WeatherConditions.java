@@ -1,13 +1,21 @@
-package eu.tooizi.fooddeliverycostcalculator.domain.models;
+package eu.tooizi.fooddeliverycostcalculator.domain.DTOs;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class WeatherConditions
 {
     @Id
@@ -16,7 +24,7 @@ public class WeatherConditions
     private UUID id;
 
     @Column(name = "timestamp", nullable = false)
-    private LocalDateTime timestamp;
+    private Instant timestamp;
 
     @Column(name = "station_wmo_code", nullable = false)
     private String stationWmoCode;
@@ -36,96 +44,4 @@ public class WeatherConditions
     @Column(name = "wind_speed_mps")
     @Nullable
     private double windSpeedMps;
-
-    /*
-     * All args and no args constructors
-     */
-
-    public WeatherConditions(UUID id, LocalDateTime timestamp, Region region, WeatherPhenomenon weatherPhenomenon, double temperatureCelsius, double windSpeedMps)
-    {
-        this.id = id;
-        this.timestamp = timestamp;
-        this.region = region;
-        this.weatherPhenomenon = weatherPhenomenon;
-        this.temperatureCelsius = temperatureCelsius;
-        this.windSpeedMps = windSpeedMps;
-    }
-
-    public WeatherConditions()
-    {
-    }
-
-    /*
-     * Getters and setters
-     */
-
-    public UUID getId()
-    {
-        return id;
-    }
-
-    public void setId(UUID id)
-    {
-        this.id = id;
-    }
-
-    public String getStationWmoCode()
-    {
-        return stationWmoCode;
-    }
-
-    public void setStationWmoCode(String stationWmoCode)
-    {
-        this.stationWmoCode = stationWmoCode;
-    }
-
-    public LocalDateTime getTimestamp()
-    {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp)
-    {
-        this.timestamp = timestamp;
-    }
-
-    public Region getRegion()
-    {
-        return region;
-    }
-
-    public void setRegion(Region region)
-    {
-        this.region = region;
-    }
-
-    public WeatherPhenomenon getWeatherPhenomenon()
-    {
-        return weatherPhenomenon;
-    }
-
-    public void setWeatherPhenomenon(WeatherPhenomenon weatherPhenomenon)
-    {
-        this.weatherPhenomenon = weatherPhenomenon;
-    }
-
-    public double getTemperatureCelsius()
-    {
-        return temperatureCelsius;
-    }
-
-    public void setTemperatureCelsius(double temperatureCelsius)
-    {
-        this.temperatureCelsius = temperatureCelsius;
-    }
-
-    public double getWindSpeedMps()
-    {
-        return windSpeedMps;
-    }
-
-    public void setWindSpeedMps(double windSpeedMps)
-    {
-        this.windSpeedMps = windSpeedMps;
-    }
 }

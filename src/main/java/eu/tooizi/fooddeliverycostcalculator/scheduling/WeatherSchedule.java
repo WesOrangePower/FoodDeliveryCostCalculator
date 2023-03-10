@@ -21,7 +21,7 @@ public class WeatherSchedule
      * Scheduled task to fetch weather data from the API
      * Runs every hour at 15th minute
      */
-    @Scheduled(cron = "0 15 * * * *")
+    @Scheduled(cron = "15 * * * * *")
     void fetchWeatherData()
     {
         weatherStatusUpdateService.updateWeatherStatus();

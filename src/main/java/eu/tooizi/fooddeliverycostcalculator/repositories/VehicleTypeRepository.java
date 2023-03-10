@@ -1,6 +1,6 @@
 package eu.tooizi.fooddeliverycostcalculator.repositories;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.models.VehicleType;
+import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.VehicleType;
 
 import org.springframework.data.repository.CrudRepository;
 

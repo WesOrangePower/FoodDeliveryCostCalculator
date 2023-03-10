@@ -1,7 +1,10 @@
 package eu.tooizi.fooddeliverycostcalculator.services;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.models.Region;
-import eu.tooizi.fooddeliverycostcalculator.domain.models.WeatherConditions;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.Region;
+import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherConditions;
+import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.weather.Observations;
+import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.weather.Station;
 import eu.tooizi.fooddeliverycostcalculator.repositories.RegionRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.WeatherConditionsRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.WeatherPhenomenonRepository;
@@ -10,22 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.*;
 
 @Service
@@ -59,7 +53,7 @@ public class WeatherStatusUpdateService
 
     public void updateWeatherStatus()
     {
-        Document weatherData = fetchWeatherData();
+        Observations weatherData = fetchWeatherData();
         Map<String, Region> stationNames = getStationNames();
         List<WeatherConditions> weatherConditions = parseWeatherData(weatherData, stationNames);
 
@@ -78,54 +72,39 @@ public class WeatherStatusUpdateService
         return stationNames;
     }
 
-    private List<WeatherConditions> parseWeatherData(Document weatherData, Map<String, Region> stationNames)
+    private List<WeatherConditions> parseWeatherData(Observations observations, Map<String, Region> stationNames)
     {
-        NodeList stations = weatherData.getElementsByTagName("station");
+        int integerTimestamp = observations.getTimestamp();
+        Instant timestamp = Instant.ofEpochSecond(integerTimestamp);
 
         List<WeatherConditions> weatherConditions = new ArrayList<>();
 
-        for (int i = 0; i < stations.getLength(); i++)
+        List<Station> stationsOfInterest = observations.stations.stream()
+                .filter(station -> stationNames.containsKey(station.getName()))
+                .toList();
+
+        for (Station station : stationsOfInterest)
         {
-            Node station = stations.item(i);
-
-            var nameOptional = findValueByTag(station.getChildNodes(), "name");
-
-            if (nameOptional.isEmpty() || !stationNames.containsKey(nameOptional.get()))
-            {
-                continue;
-            }
-
-            // parameter name -> value
-            Map<String, String> nameToValue = new HashMap<>();
-
-            for (String name : new String[]{"name", "windspeed", "wmocode", "phenomenon", "airtemperature"})
-            {
-                var valueOptional = findValueByTag(station.getChildNodes(), name);
-                if (valueOptional.isEmpty())
-                {
-                    continue;
-                }
-
-                nameToValue.put(name, valueOptional.get());
-            }
             WeatherConditions conditions = new WeatherConditions();
 
-            conditions.setRegion(stationNames.get(nameToValue.get("name")));
-            conditions.setWindSpeedMps(Double.parseDouble(nameToValue.get("windspeed")));
-            conditions.setWeatherPhenomenon(weatherPhenomenonRepository.findByName(nameToValue.get("phenomenon")).orElse(null));
-            conditions.setTemperatureCelsius(Double.parseDouble(nameToValue.get("airtemperature")));
-            conditions.setTimestamp(LocalDateTime.now());
-            conditions.setStationWmoCode(nameToValue.get("wmocode"));
+            conditions.setRegion(stationNames.get(station.getName()));
+            conditions.setWindSpeedMps(station.getWindspeed());
+            conditions.setWeatherPhenomenon(weatherPhenomenonRepository.findByName(station.getPhenomenon()).orElse(null));
+            conditions.setTemperatureCelsius(station.getAirtemperature());
+            conditions.setTimestamp(timestamp);
+            conditions.setStationWmoCode(station.getWmocode());
 
             weatherConditions.add(conditions);
         }
+
         return weatherConditions;
     }
 
-    private Document fetchWeatherData()
+    private Observations fetchWeatherData()
     {
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response;
+
         try
         {
             HttpRequest request = HttpRequest.newBuilder()
@@ -137,42 +116,16 @@ public class WeatherStatusUpdateService
             log.error("Error while fetching weather data", e);
             throw new RuntimeException(e);
         }
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
-        DocumentBuilder builder;
 
         try
         {
-            builder = factory.newDocumentBuilder();
-            return builder.parse(new InputSource(new StringReader(response.body())));
-        } catch (ParserConfigurationException | IOException | SAXException e)
+            XmlMapper xmlMapper = new XmlMapper();
+            return xmlMapper.readValue(response.body(), Observations.class);
+        } catch (IOException e)
         {
             log.error("Error while parsing weather data", e);
             throw new RuntimeException(e);
         }
-    }
-
-    private static Optional<String> findValueByTag(NodeList nodeList, String tagName)
-    {
-        for (int i = 0; i < nodeList.getLength(); i++)
-        {
-            Node node = nodeList.item(i);
-            if (!node.getNodeName().equals(tagName))
-            {
-                continue;
-            }
-            if (node.getNodeType() != Node.ELEMENT_NODE || node.getChildNodes().getLength() == 0)
-            {
-                return Optional.empty();
-            }
-            Node firstChild = node.getFirstChild();
-            if (firstChild.getNodeType() != Node.TEXT_NODE || firstChild.getNodeValue() == null)
-            {
-                return Optional.empty();
-            }
-            return Optional.of(firstChild.getNodeValue());
-        }
-        return Optional.empty();
     }
 
 

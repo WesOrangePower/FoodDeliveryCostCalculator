@@ -1,8 +1,16 @@
-package eu.tooizi.fooddeliverycostcalculator.domain.models;
+package eu.tooizi.fooddeliverycostcalculator.domain.DTOs;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class VehicleType
 {
     @Id
@@ -12,34 +20,4 @@ public class VehicleType
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    public VehicleType(Integer id, String name)
-    {
-        this.id = id;
-        this.name = name;
-    }
-
-    public VehicleType()
-    {
-    }
-
-    public Integer getId()
-    {
-        return id;
-    }
-
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
 }

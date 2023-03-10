@@ -1,5 +1,6 @@
-package eu.tooizi.fooddeliverycostcalculator.domain.models;
+package eu.tooizi.fooddeliverycostcalculator.domain.DTOs;
 
+import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.Region;
 import jakarta.persistence.*;
 
 import java.util.UUID;

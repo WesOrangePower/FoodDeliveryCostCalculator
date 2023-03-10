@@ -1,6 +1,7 @@
 package eu.tooizi.fooddeliverycostcalculator.domain.feestrategies;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.VehicleType;
+
+import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.VehicleType;
 
 public class VehicleTypeFeeStrategy implements FeeStrategy{
 
