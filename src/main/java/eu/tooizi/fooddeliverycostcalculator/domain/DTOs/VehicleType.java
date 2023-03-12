@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -22,4 +24,13 @@ public class VehicleType
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "vehicleType", orphanRemoval = true)
+    private Set<WindSpeedFeeRule> windSpeedFeeRules = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "vehicleType", orphanRemoval = true)
+    private Set<AirTemperatureFeeRule> airTemperatureFeeRules = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "vehicleType", orphanRemoval = true)
+    private Set<WeatherPhenomenonFeeRule> weatherPhenomenonFeeRules = new LinkedHashSet<>();
 }

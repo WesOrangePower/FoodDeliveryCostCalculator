@@ -3,9 +3,7 @@ package eu.tooizi.fooddeliverycostcalculator.domain.DTOs;
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherConditions;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 public class Region

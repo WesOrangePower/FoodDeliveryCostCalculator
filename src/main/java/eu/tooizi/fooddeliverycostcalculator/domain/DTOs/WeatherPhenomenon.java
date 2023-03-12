@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter
@@ -31,4 +29,8 @@ public class WeatherPhenomenon
 
     @OneToMany(mappedBy = "weatherPhenomenon", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Collection<WeatherConditions> weatherConditions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "weatherPhenomenon", orphanRemoval = true)
+    private Set<WeatherPhenomenonFeeRule> weatherPhenomenonFeeRules = new LinkedHashSet<>();
+
 }
