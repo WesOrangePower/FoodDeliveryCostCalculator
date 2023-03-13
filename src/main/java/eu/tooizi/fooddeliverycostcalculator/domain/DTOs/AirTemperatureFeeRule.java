@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AirTemperatureFeeRule
+public class AirTemperatureFeeRule implements FeeRule
 {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,6 +24,10 @@ public class AirTemperatureFeeRule
     @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
     @JoinColumn(name = "vehicle_type_id", nullable = false)
     private VehicleType vehicleType;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "region_id", nullable = false)
+    private Region region;
 
     @Column(name = "lower_bound")
     @Nullable

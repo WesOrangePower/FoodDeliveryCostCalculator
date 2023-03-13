@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class WindSpeedFeeRule
+public class WindSpeedFeeRule implements FeeRule
 {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -25,6 +25,10 @@ public class WindSpeedFeeRule
     @JoinColumn(name = "vehicle_type_id", nullable = false)
     private VehicleType vehicleType;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "region_id", nullable = false)
+    private Region region;
+
     @Column(name = "lower_bound")
     @Nullable
     private Double lowerBound;
@@ -34,7 +38,7 @@ public class WindSpeedFeeRule
     private Double upperBound;
 
     @Column(name = "deliverable", nullable = false)
-    private Boolean deliverable = false;
+    private Boolean deliverable = true;
 
     @Column(name = "price_difference")
     @Nullable

@@ -23,10 +23,6 @@ import java.util.stream.StreamSupport;
 class FoodDeliveryCostCalculatorApplicationTests
 {
 
-    @Test
-    void contextLoads()
-    {
-    }
 
     @Test
     void testXmlMap()

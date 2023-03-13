@@ -1,6 +1,5 @@
 package eu.tooizi.fooddeliverycostcalculator.domain.DTOs;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherConditions;
 import jakarta.persistence.*;
 
 import java.util.*;
@@ -24,6 +23,15 @@ public class Region
 
     @Column(name = "weather_station_name")
     private String weatherStationName;
+
+    @OneToMany(mappedBy = "region", orphanRemoval = true)
+    private final Set<AirTemperatureFeeRule> airTemperatureFeeRules = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "region", orphanRemoval = true)
+    private final Set<WeatherPhenomenonFeeRule> weatherPhenomenonFeeRules = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "region", orphanRemoval = true)
+    private final Set<WindSpeedFeeRule> windSpeedFeeRules = new LinkedHashSet<>();
 
     public Region(UUID id, String name, Collection<RegionalBaseFee> regionalBaseFees, Collection<WeatherConditions> weatherConditions)
     {

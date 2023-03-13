@@ -1,6 +1,5 @@
 package eu.tooizi.fooddeliverycostcalculator.domain.DTOs.weather;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.AllArgsConstructor;

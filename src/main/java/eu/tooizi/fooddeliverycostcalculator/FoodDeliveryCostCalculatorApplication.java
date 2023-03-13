@@ -29,7 +29,7 @@ public class FoodDeliveryCostCalculatorApplication implements CommandLineRunner
     }
 
     @Override
-    public void run(String... args) throws Exception
+    public void run(String... args)
     {
         databaseSeeder.seed();
         weatherStatusUpdateService.updateWeatherStatus();

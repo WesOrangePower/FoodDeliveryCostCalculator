@@ -4,7 +4,8 @@ import org.springframework.http.HttpStatusCode;
 
 public class DeliveryFeeResponseFactory
 {
-    public DeliveryFeeResponse successful(double fee) {
+    public DeliveryFeeResponse successful(double fee)
+    {
         DeliveryFeeResponse response = new DeliveryFeeResponse();
         response.setErrored(false);
         response.setDeliveryFee(fee);
@@ -13,7 +14,8 @@ public class DeliveryFeeResponseFactory
         return response;
     }
 
-    public DeliveryFeeResponse failed(HttpStatusCode httpErrorCode, String errorMessage) {
+    public DeliveryFeeResponse failed(HttpStatusCode httpErrorCode, String errorMessage)
+    {
         DeliveryFeeResponse response = new DeliveryFeeResponse();
         response.setErrored(true);
         response.setResponseCode(httpErrorCode);

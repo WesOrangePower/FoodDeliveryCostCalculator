@@ -4,10 +4,12 @@ import eu.tooizi.fooddeliverycostcalculator.domain.responses.DeliveryFeeResponse
 import eu.tooizi.fooddeliverycostcalculator.services.DeliveryFeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class DeliveryFeeController {
+public class DeliveryFeeController
+{
 
     private final DeliveryFeeService deliveryFeeService;
 
@@ -16,8 +18,10 @@ public class DeliveryFeeController {
         this.deliveryFeeService = deliveryFeeService;
     }
 
-    @GetMapping("/delivery-fee")
-    public DeliveryFeeResponse getDeliveryFee(String region, String vehicleType) {
+    @GetMapping("/api/delivery-fee")
+    public DeliveryFeeResponse getDeliveryFee(@RequestParam String region,
+                                              @RequestParam(name = "vehicle_type") String vehicleType)
+    {
         return deliveryFeeService.getDeliveryFee(region, vehicleType);
     }
 }

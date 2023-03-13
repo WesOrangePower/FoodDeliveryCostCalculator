@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class WeatherSchedule
 {
 
-    private WeatherStatusUpdateService weatherStatusUpdateService;
+    private final WeatherStatusUpdateService weatherStatusUpdateService;
 
     public WeatherSchedule(@Autowired WeatherStatusUpdateService weatherStatusUpdateService)
     {

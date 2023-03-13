@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class WeatherPhenomenonFeeRule
+public class WeatherPhenomenonFeeRule implements FeeRule
 {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,8 +26,12 @@ public class WeatherPhenomenonFeeRule
     private VehicleType vehicleType;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "weather_phenomenon_id", nullable = false)
-    private WeatherPhenomenon weatherPhenomenon;
+    @JoinColumn(name = "region_id", nullable = false)
+    private Region region;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "phenomenon_category_id", nullable = false)
+    private PhenomenonCategory phenomenonCategory;
 
     @Column(name = "deliverable", nullable = false)
     private Boolean deliverable = true;

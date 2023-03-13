@@ -4,7 +4,6 @@ import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.Region;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 

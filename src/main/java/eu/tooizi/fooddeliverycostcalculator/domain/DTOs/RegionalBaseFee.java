@@ -1,6 +1,5 @@
 package eu.tooizi.fooddeliverycostcalculator.domain.DTOs;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.Region;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -55,6 +54,7 @@ public class RegionalBaseFee
     {
         this.baseFee = baseFee;
     }
+
     public Region getRegion() {return region;}
 
     public void setRegion(Region region) {this.region = region;}
