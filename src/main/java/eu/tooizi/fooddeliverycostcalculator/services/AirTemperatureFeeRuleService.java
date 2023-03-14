@@ -2,6 +2,7 @@ package eu.tooizi.fooddeliverycostcalculator.services;
 
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.AirTemperatureFeeRule;
 import eu.tooizi.fooddeliverycostcalculator.repositories.AirTemperatureFeeRuleRepository;
+import eu.tooizi.fooddeliverycostcalculator.services.exceptions.AirTemperatureFeeRuleOverlapsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,16 @@ public class AirTemperatureFeeRuleService
     }
 
     public void addAirTemperatureFeeRule(AirTemperatureFeeRule airTemperatureFeeRule)
+            throws AirTemperatureFeeRuleOverlapsException
     {
+        RangeFeeRuleOverlapChecker<AirTemperatureFeeRule> overlapChecker = new RangeFeeRuleOverlapChecker<>();
+
+        overlapChecker.findOverlap(airTemperatureFeeRule, airTemperatureFeeRuleRepository.findAll())
+                .ifPresent(overlappingFeeRule -> {
+                    throw new AirTemperatureFeeRuleOverlapsException("Added rule overlaps with and existing one.",
+                            overlappingFeeRule);
+                });
+
         airTemperatureFeeRuleRepository.save(airTemperatureFeeRule);
     }
 

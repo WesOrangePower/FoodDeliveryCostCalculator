@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class WindSpeedFeeRule implements FeeRule
+public class WindSpeedFeeRule implements RangeFeeRule
 {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

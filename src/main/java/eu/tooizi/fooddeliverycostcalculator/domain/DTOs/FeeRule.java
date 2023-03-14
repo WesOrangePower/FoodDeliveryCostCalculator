@@ -10,3 +10,4 @@ public interface FeeRule
 
     VehicleType getVehicleType();
 }
+

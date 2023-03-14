@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Seeds the base data at every start of the application.
+ */
 @Service
 public class DatabaseSeeder
 {
@@ -17,8 +20,8 @@ public class DatabaseSeeder
     private final PhenomenonCategoryRepository phenomenonCategoryRepository;
     private final RegionalBaseFeeRepository regionalBaseFeeRepository;
     private final WeatherPhenomenonFeeRuleRepository weatherPhenomenonFeeRuleRepository;
-    private final AirTemperatureFeeRuleRepository airTemperatureFeeRuleRepository;
-    private final WindSpeedFeeRuleRepository windSpeedFeeRuleRepository;
+    private final AirTemperatureFeeRuleService airTemperatureFeeRuleService;
+    private final WindSpeedFeeRuleService windSpeedFeeRuleService;
 
     public DatabaseSeeder(RegionRepository regionRepository,
                           VehicleTypeRepository vehicleTypeRepository,
@@ -26,8 +29,8 @@ public class DatabaseSeeder
                           PhenomenonCategoryRepository phenomenonCategoryRepository,
                           RegionalBaseFeeRepository regionalBaseFeeRepository,
                           WeatherPhenomenonFeeRuleRepository weatherPhenomenonFeeRuleRepository,
-                          AirTemperatureFeeRuleRepository airTemperatureFeeRuleRepository,
-                          WindSpeedFeeRuleRepository windSpeedFeeRuleRepository)
+                          AirTemperatureFeeRuleService airTemperatureFeeRuleService,
+                          WindSpeedFeeRuleService windSpeedFeeRuleService)
     {
         this.regionRepository = regionRepository;
         this.vehicleTypeRepository = vehicleTypeRepository;
@@ -35,8 +38,8 @@ public class DatabaseSeeder
         this.phenomenonCategoryRepository = phenomenonCategoryRepository;
         this.regionalBaseFeeRepository = regionalBaseFeeRepository;
         this.weatherPhenomenonFeeRuleRepository = weatherPhenomenonFeeRuleRepository;
-        this.airTemperatureFeeRuleRepository = airTemperatureFeeRuleRepository;
-        this.windSpeedFeeRuleRepository = windSpeedFeeRuleRepository;
+        this.airTemperatureFeeRuleService = airTemperatureFeeRuleService;
+        this.windSpeedFeeRuleService = windSpeedFeeRuleService;
     }
 
     /**
@@ -191,16 +194,15 @@ public class DatabaseSeeder
                 bikesOrScootersInChillyWeather.setUpperBound(0d);
                 bikesOrScootersInChillyWeather.setPriceDifference(.5);
                 bikesOrScootersInChillyWeather.setRegion(region);
+                airTemperatureFeeRuleService.addAirTemperatureFeeRule(bikesOrScootersInChillyWeather);
 
                 AirTemperatureFeeRule bikesOrScootersInColdWeather = new AirTemperatureFeeRule();
                 bikesOrScootersInColdWeather.setVehicleType(vehicle);
                 bikesOrScootersInColdWeather.setUpperBound(-10d);
                 bikesOrScootersInColdWeather.setPriceDifference(1d);
                 bikesOrScootersInColdWeather.setRegion(region);
+                airTemperatureFeeRuleService.addAirTemperatureFeeRule(bikesOrScootersInColdWeather);
 
-                airTemperatureFeeRuleRepository.saveAll(
-                        List.of(bikesOrScootersInChillyWeather, bikesOrScootersInColdWeather)
-                );
             }
             // Wind speed fee rules
             WindSpeedFeeRule bikesInModerateWind = new WindSpeedFeeRule();
@@ -209,14 +211,14 @@ public class DatabaseSeeder
             bikesInModerateWind.setUpperBound(20d);
             bikesInModerateWind.setRegion(region);
             bikesInModerateWind.setPriceDifference(.5);
+            windSpeedFeeRuleService.addWindSpeedFeeRule(bikesInModerateWind);
 
             WindSpeedFeeRule noBikesInStrongWind = new WindSpeedFeeRule();
             noBikesInStrongWind.setVehicleType(bike);
             noBikesInStrongWind.setLowerBound(20d);
             noBikesInStrongWind.setRegion(region);
             noBikesInStrongWind.setDeliverable(false);
-
-            windSpeedFeeRuleRepository.saveAll(List.of(bikesInModerateWind, noBikesInStrongWind));
+            windSpeedFeeRuleService.addWindSpeedFeeRule(noBikesInStrongWind);
         }
 
     }

@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AirTemperatureFeeRule implements FeeRule
+public class AirTemperatureFeeRule implements RangeFeeRule
 {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
