@@ -1,6 +1,5 @@
 package eu.tooizi.fooddeliverycostcalculator.services.exceptions;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.AirTemperatureFeeRule;
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WindSpeedFeeRule;
 import lombok.Getter;
 

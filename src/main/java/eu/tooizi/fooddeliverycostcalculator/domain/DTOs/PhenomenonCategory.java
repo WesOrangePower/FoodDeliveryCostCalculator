@@ -27,11 +27,6 @@ public class PhenomenonCategory
     @OneToMany(mappedBy = "phenomenonCategory", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Collection<WeatherPhenomenon> weatherPhenomena = new ArrayList<>();
 
-    public Collection<WeatherPhenomenon> getWeatherPhenomena() {return weatherPhenomena;}
-
-    public void setWeatherPhenomena(Collection<WeatherPhenomenon> weatherPhenomena) {this.weatherPhenomena = weatherPhenomena;}
-
-
     public PhenomenonCategory(UUID id, String name)
     {
         this.id = id;
@@ -41,6 +36,10 @@ public class PhenomenonCategory
     public PhenomenonCategory()
     {
     }
+
+    public Collection<WeatherPhenomenon> getWeatherPhenomena() {return weatherPhenomena;}
+
+    public void setWeatherPhenomena(Collection<WeatherPhenomenon> weatherPhenomena) {this.weatherPhenomena = weatherPhenomena;}
 
     public UUID getId()
     {

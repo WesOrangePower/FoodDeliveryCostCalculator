@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/fee-rule")
 public class FeeRuleController
 {
     private final AirTemperatureFeeRuleService airTemperatureFeeRuleService;
@@ -18,19 +19,19 @@ public class FeeRuleController
         this.airTemperatureFeeRuleService = airTemperatureFeeRuleService;
     }
 
-    @GetMapping("/api/fee-rule/air-temperature")
+    @GetMapping("/air-temperature")
     public Collection<AirTemperatureFeeRule> getAll()
     {
         return airTemperatureFeeRuleService.getAirTemperatureFeeRules();
     }
 
-    @PostMapping("/api/fee-rule/air-temperature")
-    public void create(@RequestParam(name = "air_rremperature_fee_rule") AirTemperatureFeeRule airTemperatureFeeRule)
+    @PostMapping("/air-temperature")
+    public void create(@RequestParam(name = "air_temperature_fee_rule") AirTemperatureFeeRule airTemperatureFeeRule)
     {
         airTemperatureFeeRuleService.addAirTemperatureFeeRule(airTemperatureFeeRule);
     }
 
-    @DeleteMapping("/api/fee-rule/weather-phenomenon")
+    @DeleteMapping("/air-temperature")
     public void delete(@RequestParam UUID id)
     {
         airTemperatureFeeRuleService.deleteAirTemperatureFeeRuleById(id);

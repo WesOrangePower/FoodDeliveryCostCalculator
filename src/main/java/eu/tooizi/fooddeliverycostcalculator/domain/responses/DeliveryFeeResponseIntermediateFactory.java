@@ -2,11 +2,11 @@ package eu.tooizi.fooddeliverycostcalculator.domain.responses;
 
 import org.springframework.http.HttpStatusCode;
 
-public class DeliveryFeeResponseFactory
+public class DeliveryFeeResponseIntermediateFactory
 {
-    public DeliveryFeeResponse successful(double fee)
+    public DeliveryFeeResponseIntermediate successful(double fee)
     {
-        DeliveryFeeResponse response = new DeliveryFeeResponse();
+        DeliveryFeeResponseIntermediate response = new DeliveryFeeResponseIntermediate();
         response.setErrored(false);
         response.setDeliveryFee(fee);
         response.setResponseCode(HttpStatusCode.valueOf(200));
@@ -14,9 +14,9 @@ public class DeliveryFeeResponseFactory
         return response;
     }
 
-    public DeliveryFeeResponse failed(HttpStatusCode httpErrorCode, String errorMessage)
+    public DeliveryFeeResponseIntermediate failed(HttpStatusCode httpErrorCode, String errorMessage)
     {
-        DeliveryFeeResponse response = new DeliveryFeeResponse();
+        DeliveryFeeResponseIntermediate response = new DeliveryFeeResponseIntermediate();
         response.setErrored(true);
         response.setResponseCode(httpErrorCode);
         response.setErrorMessage(errorMessage);

@@ -32,7 +32,9 @@ public class AirTemperatureFeeRuleService
     {
         RangeFeeRuleOverlapChecker<AirTemperatureFeeRule> overlapChecker = new RangeFeeRuleOverlapChecker<>();
 
-        overlapChecker.findOverlap(airTemperatureFeeRule, airTemperatureFeeRuleRepository.findAll())
+        Iterable<AirTemperatureFeeRule> existingRules = airTemperatureFeeRuleRepository.findAll();
+
+        overlapChecker.findOverlap(airTemperatureFeeRule, existingRules)
                 .ifPresent(overlappingFeeRule -> {
                     throw new AirTemperatureFeeRuleOverlapsException("Added rule overlaps with and existing one.",
                             overlappingFeeRule);

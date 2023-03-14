@@ -20,6 +20,14 @@ public class RangeFeeRuleOverlapChecker<T extends RangeFeeRule>
 
     public boolean isOverlapping(T newRule, T existingRule)
     {
+        boolean regionsAreEqual = newRule.getRegion().getId().equals(existingRule.getRegion().getId());
+        boolean vehicleTypesAreEqual = newRule.getVehicleType().getId().equals(existingRule.getVehicleType().getId());
+
+        if (!regionsAreEqual || !vehicleTypesAreEqual)
+        {
+            return false;
+        }
+
         var newLower = newRule.getLowerBound() != null
                 ? newRule.getLowerBound()
                 : RangeFeeRule.LOWEST_BOUND;
@@ -34,6 +42,6 @@ public class RangeFeeRuleOverlapChecker<T extends RangeFeeRule>
                 ? existingRule.getUpperBound()
                 : RangeFeeRule.HIGHEST_BOUND;
 
-        return existingLower <= newUpper && newLower <= existingUpper;
+        return existingLower < newUpper && newLower < existingUpper;
     }
 }

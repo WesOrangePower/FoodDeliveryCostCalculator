@@ -7,31 +7,24 @@ import java.util.*;
 @Entity
 public class Region
 {
+    @OneToMany(mappedBy = "region", orphanRemoval = true)
+    private final Set<AirTemperatureFeeRule> airTemperatureFeeRules = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "region", orphanRemoval = true)
+    private final Set<WeatherPhenomenonFeeRule> weatherPhenomenonFeeRules = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "region", orphanRemoval = true)
+    private final Set<WindSpeedFeeRule> windSpeedFeeRules = new LinkedHashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
-
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-
     @OneToMany(mappedBy = "region", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Collection<RegionalBaseFee> regionalBaseFees = new ArrayList<>();
-
     @OneToMany(mappedBy = "region", orphanRemoval = true)
     private Collection<WeatherConditions> weatherConditions = new ArrayList<>();
-
     @Column(name = "weather_station_name")
     private String weatherStationName;
-
-    @OneToMany(mappedBy = "region", orphanRemoval = true)
-    private final Set<AirTemperatureFeeRule> airTemperatureFeeRules = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "region", orphanRemoval = true)
-    private final Set<WeatherPhenomenonFeeRule> weatherPhenomenonFeeRules = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "region", orphanRemoval = true)
-    private final Set<WindSpeedFeeRule> windSpeedFeeRules = new LinkedHashSet<>();
 
     public Region(UUID id, String name, Collection<RegionalBaseFee> regionalBaseFees, Collection<WeatherConditions> weatherConditions)
     {

@@ -13,19 +13,18 @@ public class FoodDeliveryCostCalculatorApplication implements CommandLineRunner
 {
 
 
-    public static void main(String[] args)
-    {
-        SpringApplication.run(FoodDeliveryCostCalculatorApplication.class, args);
-    }
-
     private final DatabaseSeeder databaseSeeder;
     private final WeatherStatusUpdateService weatherStatusUpdateService;
-
     public FoodDeliveryCostCalculatorApplication(DatabaseSeeder databaseSeeder,
                                                  WeatherStatusUpdateService weatherStatusUpdateService)
     {
         this.databaseSeeder = databaseSeeder;
         this.weatherStatusUpdateService = weatherStatusUpdateService;
+    }
+
+    public static void main(String[] args)
+    {
+        SpringApplication.run(FoodDeliveryCostCalculatorApplication.class, args);
     }
 
     @Override

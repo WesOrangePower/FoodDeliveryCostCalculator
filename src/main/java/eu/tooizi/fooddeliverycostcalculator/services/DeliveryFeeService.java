@@ -1,8 +1,8 @@
 package eu.tooizi.fooddeliverycostcalculator.services;
 
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.*;
-import eu.tooizi.fooddeliverycostcalculator.domain.responses.DeliveryFeeResponse;
-import eu.tooizi.fooddeliverycostcalculator.domain.responses.DeliveryFeeResponseFactory;
+import eu.tooizi.fooddeliverycostcalculator.domain.responses.DeliveryFeeResponseIntermediate;
+import eu.tooizi.fooddeliverycostcalculator.domain.responses.DeliveryFeeResponseIntermediateFactory;
 import eu.tooizi.fooddeliverycostcalculator.repositories.*;
 import eu.tooizi.fooddeliverycostcalculator.services.exceptions.UndeliverableException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,8 @@ import java.util.Optional;
 @Service
 public class DeliveryFeeService
 {
+
+    public static final String UNDELIVERABLE_ERROR_MESSAGE = "Usage of selected vehicle type is forbidden";
     private final RegionRepository regionRepository;
     private final VehicleTypeRepository vehicleTypeRepository;
     private final WeatherConditionsRepository weatherConditionsRepository;
@@ -42,9 +44,9 @@ public class DeliveryFeeService
         this.weatherPhenomenonFeeRuleRepository = weatherPhenomenonFeeRuleRepository;
     }
 
-    public DeliveryFeeResponse getDeliveryFee(String region, String vehicleType)
+    public DeliveryFeeResponseIntermediate getDeliveryFee(String region, String vehicleType)
     {
-        DeliveryFeeResponseFactory responseFactory = new DeliveryFeeResponseFactory();
+        DeliveryFeeResponseIntermediateFactory responseFactory = new DeliveryFeeResponseIntermediateFactory();
         double deliveryFee;
         try
         {
@@ -66,7 +68,9 @@ public class DeliveryFeeService
                             () -> new UndeliverableException(HttpStatusCode.valueOf(404), "Cannot find base fee for supplied vehicle")
                     );
 
-            WeatherConditions latestConditions = weatherConditionsRepository.findNewestByRegionId(foundRegion.getId())
+            WeatherConditions latestConditions = weatherConditionsRepository.findFirstByRegionOrderByTimestampDesc(
+                            foundRegion
+                    )
                     .orElseThrow(
                             () -> new UndeliverableException(HttpStatusCode.valueOf(404), "No data on weather in supplied region")
                     );
@@ -93,7 +97,7 @@ public class DeliveryFeeService
             deliveryFee += applyFee(weatherPhenomenonFeeRule);
         } catch (UndeliverableException e)
         {
-            return responseFactory.failed(e.getStatusCode(), e.getMessage());
+            return responseFactory.failed(e.getStatusCode(), e.getReason());
         }
         return responseFactory.successful(deliveryFee);
     }
@@ -104,7 +108,7 @@ public class DeliveryFeeService
         {
             throw new UndeliverableException(
                     HttpStatusCode.valueOf(200),
-                    "Usage of selected vehicle type is forbidden"
+                    UNDELIVERABLE_ERROR_MESSAGE
             );
         }
         return rule.getPriceDifference();

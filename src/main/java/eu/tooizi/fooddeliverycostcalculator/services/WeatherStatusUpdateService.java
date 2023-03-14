@@ -30,9 +30,8 @@ import java.util.Map;
 public class WeatherStatusUpdateService
 {
     public static final String WEATHER_RESOURCE_URL = "https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
-    private final URI WeatherResourceUri;
-
     private static final Logger log = LoggerFactory.getLogger(WeatherSchedule.class);
+    private final URI WeatherResourceUri;
     private final RegionRepository regionRepository;
     private final WeatherPhenomenonRepository weatherPhenomenonRepository;
     private final WeatherConditionsRepository weatherConditionsRepository;
