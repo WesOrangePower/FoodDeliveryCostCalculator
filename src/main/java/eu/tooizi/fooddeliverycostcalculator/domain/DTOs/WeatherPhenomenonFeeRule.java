@@ -10,6 +10,9 @@ import lombok.Setter;
 
 import java.util.UUID;
 
+/**
+ * Weather phenomenon fee business rule.
+ */
 @Entity
 @Getter
 @Setter

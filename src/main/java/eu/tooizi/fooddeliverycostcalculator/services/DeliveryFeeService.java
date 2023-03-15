@@ -11,10 +11,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Service for calculating delivery fee.
+ * Main logic is here.
+ */
 @Service
 public class DeliveryFeeService
 {
 
+    /**
+     * Message that should be returned on undeliverable request.
+     */
     public static final String UNDELIVERABLE_ERROR_MESSAGE = "Usage of selected vehicle type is forbidden";
     private final RegionRepository regionRepository;
     private final VehicleTypeRepository vehicleTypeRepository;
@@ -25,6 +32,19 @@ public class DeliveryFeeService
     private final WindSpeedFeeRuleRepository windSpeedFeeRuleRepository;
     private final WeatherPhenomenonFeeRuleRepository weatherPhenomenonFeeRuleRepository;
 
+    /**
+     * Constructor for service.
+     * All repositories are autowired.
+     *
+     * @param regionRepository                   Repository for regions
+     * @param vehicleTypeRepository              Repository for vehicle types
+     * @param weatherConditionsRepository        Repository for weather conditions
+     * @param phenomenonCategoryRepository       Repository for phenomenon categories
+     * @param regionalBaseFeeRepository          Repository for regional base fees
+     * @param airTemperatureFeeRuleRepository    Repository for air temperature fee rules
+     * @param windSpeedFeeRuleRepository         Repository for wind speed fee rules
+     * @param weatherPhenomenonFeeRuleRepository Repository for weather phenomenon fee rules
+     */
     public DeliveryFeeService(@Autowired RegionRepository regionRepository,
                               @Autowired VehicleTypeRepository vehicleTypeRepository,
                               @Autowired WeatherConditionsRepository weatherConditionsRepository,
@@ -44,6 +64,13 @@ public class DeliveryFeeService
         this.weatherPhenomenonFeeRuleRepository = weatherPhenomenonFeeRuleRepository;
     }
 
+    /**
+     * Calculates delivery fee for given region and vehicle type.
+     *
+     * @param region      Name of the region
+     * @param vehicleType Name of the vehicle type
+     * @return Delivery fee response
+     */
     public DeliveryFeeResponseIntermediate getDeliveryFee(String region, String vehicleType)
     {
         DeliveryFeeResponseIntermediateFactory responseFactory = new DeliveryFeeResponseIntermediateFactory();
@@ -102,7 +129,14 @@ public class DeliveryFeeService
         return responseFactory.successful(deliveryFee);
     }
 
-    double applyFee(FeeRule rule) throws UndeliverableException
+    /**
+     * Applies fee rule to delivery fee.
+     *
+     * @param rule Fee rule
+     * @return Price difference
+     * @throws UndeliverableException If rule prohibits delivery
+     */
+    double applyFee(FeeRule rule)
     {
         if (!rule.getDeliverable())
         {

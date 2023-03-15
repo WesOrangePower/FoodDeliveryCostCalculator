@@ -9,6 +9,9 @@ import lombok.Setter;
 
 import java.util.*;
 
+/**
+ * Region / City entity.
+ */
 @Entity
 @Getter
 @Setter

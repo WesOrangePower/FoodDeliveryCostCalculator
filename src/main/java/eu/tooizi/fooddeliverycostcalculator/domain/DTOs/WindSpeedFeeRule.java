@@ -9,6 +9,9 @@ import lombok.Setter;
 
 import java.util.UUID;
 
+/**
+ * Wind speed fee business rule.
+ */
 @Entity
 @Getter
 @Setter

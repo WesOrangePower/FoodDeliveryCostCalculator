@@ -2,8 +2,17 @@ package eu.tooizi.fooddeliverycostcalculator.domain.responses;
 
 import org.springframework.http.HttpStatusCode;
 
+/**
+ * Factory for {@link DeliveryFeeResponseIntermediate}
+ */
 public class DeliveryFeeResponseIntermediateFactory
 {
+    /**
+     * Creates a successful response.
+     *
+     * @param fee Delivery fee.
+     * @return Intermediate of delivery fee response.
+     */
     public DeliveryFeeResponseIntermediate successful(double fee)
     {
         DeliveryFeeResponseIntermediate response = new DeliveryFeeResponseIntermediate();
@@ -14,6 +23,13 @@ public class DeliveryFeeResponseIntermediateFactory
         return response;
     }
 
+    /**
+     * Creates a failed response.
+     *
+     * @param httpErrorCode HTTP error code.
+     * @param errorMessage  Error message.
+     * @return Intermediate of delivery fee response.
+     */
     public DeliveryFeeResponseIntermediate failed(HttpStatusCode httpErrorCode, String errorMessage)
     {
         DeliveryFeeResponseIntermediate response = new DeliveryFeeResponseIntermediate();

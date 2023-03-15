@@ -11,6 +11,9 @@ import java.time.Instant;
 import java.util.UUID;
 
 
+/**
+ * Weather conditions entity.
+ */
 @Entity
 @Getter
 @Setter

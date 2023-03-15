@@ -1,10 +1,21 @@
 package eu.tooizi.fooddeliverycostcalculator.domain.DTOs;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
+/**
+ * Regional base fee for a vehicle type
+ */
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RegionalBaseFee
 {
     @Id
@@ -22,44 +33,4 @@ public class RegionalBaseFee
     @ManyToOne( optional = false)
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
-
-
-    public RegionalBaseFee(UUID id, VehicleType vehicleType, double baseFee)
-    {
-        this.id = id;
-        this.vehicleType = vehicleType;
-        this.baseFee = baseFee;
-    }
-
-    public RegionalBaseFee()
-    {
-    }
-
-    public UUID getId()
-    {
-        return id;
-    }
-
-    public void setId(UUID id)
-    {
-        this.id = id;
-    }
-
-    public double getBaseFee()
-    {
-        return baseFee;
-    }
-
-    public void setBaseFee(double baseFee)
-    {
-        this.baseFee = baseFee;
-    }
-
-    public Region getRegion() {return region;}
-
-    public void setRegion(Region region) {this.region = region;}
-
-    public VehicleType getVehicleType() {return vehicleType;}
-
-    public void setVehicleType(VehicleType vehicleType) {this.vehicleType = vehicleType;}
 }

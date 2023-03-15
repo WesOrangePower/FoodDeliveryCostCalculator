@@ -26,9 +26,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Service that fetches the weather data and saves it to the database.
+ */
 @Service
 public class WeatherStatusUpdateService
 {
+    /**
+     * URI for the weather data resource.
+     */
     public static final String WEATHER_RESOURCE_URL = "https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
     private static final Logger log = LoggerFactory.getLogger(WeatherSchedule.class);
     private final URI WeatherResourceUri;
@@ -37,6 +43,14 @@ public class WeatherStatusUpdateService
     private final WeatherConditionsRepository weatherConditionsRepository;
 
 
+    /**
+     * Constructor.
+     * All fields are autowired.
+     *
+     * @param regionRepository            Repository for regions.
+     * @param weatherPhenomenonRepository Repository for weather phenomena.
+     * @param weatherConditionsRepository Repository for weather conditions.
+     */
     public WeatherStatusUpdateService(@Autowired RegionRepository regionRepository,
                                       @Autowired WeatherPhenomenonRepository weatherPhenomenonRepository,
                                       @Autowired WeatherConditionsRepository weatherConditionsRepository)
@@ -54,6 +68,9 @@ public class WeatherStatusUpdateService
         }
     }
 
+    /**
+     * Fetches the weather data from the Estonian National Weather Service and saves it to the database.
+     */
     public void updateWeatherStatus()
     {
         Observations weatherData = fetchWeatherData();

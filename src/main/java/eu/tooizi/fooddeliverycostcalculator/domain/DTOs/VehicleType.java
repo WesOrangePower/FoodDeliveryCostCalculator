@@ -11,6 +11,9 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Vehicle type entity.
+ */
 @Entity
 @Getter
 @Setter

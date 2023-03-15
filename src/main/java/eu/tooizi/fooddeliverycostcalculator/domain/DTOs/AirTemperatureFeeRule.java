@@ -9,6 +9,9 @@ import lombok.Setter;
 
 import java.util.UUID;
 
+/**
+ * Air temperature fee rule entity.
+ */
 @Entity
 @Getter
 @Setter

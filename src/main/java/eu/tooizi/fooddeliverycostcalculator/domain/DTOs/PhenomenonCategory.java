@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
+/**
+ * Entity for categorization of weather phenomena.
+ */
+@SuppressWarnings("MissingJavadoc")
 @Entity
 @Getter
 @Setter
@@ -18,6 +22,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PhenomenonCategory
 {
+    /**
+     * Names of the categories. Use the constants instead of magic strings.
+     */
     public static final String DEFAULT_NAME = "Clear or unknown";
     public static final String SLEET = "sleet";
     public static final String GLAZE = "glaze";

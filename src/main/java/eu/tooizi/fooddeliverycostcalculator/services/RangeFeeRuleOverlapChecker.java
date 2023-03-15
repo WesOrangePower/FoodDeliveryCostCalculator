@@ -4,8 +4,20 @@ import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.RangeFeeRule;
 
 import java.util.Optional;
 
+/**
+ * Utility class for checking if two {@link RangeFeeRule} objects overlap.
+ *
+ * @param <T> The type of the {@link RangeFeeRule} objects.
+ */
 public class RangeFeeRuleOverlapChecker<T extends RangeFeeRule>
 {
+    /**
+     * Checks if a new {@link RangeFeeRule} overlaps with any of the existing rules.
+     *
+     * @param newRule       The new rule.
+     * @param existingRules The existing rules.
+     * @return The existing rule that overlaps with the new rule, if any.
+     */
     public Optional<T> findOverlap(T newRule, Iterable<T> existingRules)
     {
         for (T existingRule : existingRules)
@@ -18,6 +30,13 @@ public class RangeFeeRuleOverlapChecker<T extends RangeFeeRule>
         return Optional.empty();
     }
 
+    /**
+     * Checks if two {@link RangeFeeRule} objects overlap.
+     *
+     * @param newRule      The new rule.
+     * @param existingRule The existing rule.
+     * @return True if the rules overlap, false otherwise.
+     */
     public boolean isOverlapping(T newRule, T existingRule)
     {
         boolean regionsAreEqual = newRule.getRegion().getId().equals(existingRule.getRegion().getId());

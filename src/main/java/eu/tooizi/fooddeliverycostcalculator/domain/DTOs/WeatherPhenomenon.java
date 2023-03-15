@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
+/**
+ * Weather phenomenon entity.
+ */
 @Entity
 @Getter
 @Setter
@@ -31,14 +34,4 @@ public class WeatherPhenomenon
 
     @OneToMany( mappedBy = "weatherPhenomenon")
     private Collection<WeatherConditions> weatherConditions = new ArrayList<>();
-
-    public Collection<WeatherConditions> getWeatherConditions()
-    {
-        return weatherConditions;
-    }
-
-    public void setWeatherConditions(Collection<WeatherConditions> weatherConditions)
-    {
-        this.weatherConditions = weatherConditions;
-    }
 }

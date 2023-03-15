@@ -16,6 +16,9 @@ import java.util.Collection;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
 
+/**
+ * Service for managing weather phenomenon fee rules with CRUD-like methods.
+ */
 @Service
 public class WeatherPhenomenonFeeRuleService
 {
@@ -24,6 +27,15 @@ public class WeatherPhenomenonFeeRuleService
     private final RegionRepository regionRepository;
     private final PhenomenonCategoryRepository phenomenonCategoryRepository;
 
+    /**
+     * Constructor.
+     * All fields are autowired.
+     *
+     * @param weatherPhenomenonFeeRuleRepository Repository for weather phenomenon fee rules.
+     * @param vehicleTypeRepository              Repository for vehicle types.
+     * @param regionRepository                   Repository for regions.
+     * @param phenomenonCategoryRepository       Repository for phenomenon categories.
+     */
     public WeatherPhenomenonFeeRuleService(@Autowired WeatherPhenomenonFeeRuleRepository weatherPhenomenonFeeRuleRepository,
                                            @Autowired VehicleTypeRepository vehicleTypeRepository,
                                            @Autowired RegionRepository regionRepository,
@@ -36,31 +48,47 @@ public class WeatherPhenomenonFeeRuleService
         this.phenomenonCategoryRepository = phenomenonCategoryRepository;
     }
 
+    /**
+     * Fetches all weather phenomenon fee rules from the database.
+     *
+     * @return Collection of weather phenomenon fee rules.
+     */
     public Collection<WeatherPhenomenonFeeRule> getWeatherPhenomenonFeeRules()
     {
         return StreamSupport.stream(weatherPhenomenonFeeRuleRepository.findAll().spliterator(), false)
                 .toList();
     }
 
+    /**
+     * Creates a new weather phenomenon fee rule and saves it to the database.
+     *
+     * @param weatherPhenomenonFeeRuleRequest Request containing the data for the new weather phenomenon fee rule.
+     */
     public void addWeatherPhenomenonFeeRule(WeatherPhenomenonFeeRuleRequest weatherPhenomenonFeeRuleRequest)
     {
         WeatherPhenomenonFeeRule weatherPhenomenonFeeRule = mapRequestToModel(weatherPhenomenonFeeRuleRequest);
         weatherPhenomenonFeeRuleRepository.save(weatherPhenomenonFeeRule);
     }
 
-    public void addWeatherPhenomenonFeeRule(WeatherPhenomenonFeeRule weatherPhenomenonFeeRule)
-    {
-        weatherPhenomenonFeeRuleRepository.save(weatherPhenomenonFeeRule);
-    }
-
+    /**
+     * Deletes the weather phenomenon fee rule with the given id from the database.
+     *
+     * @param id ID of the weather phenomenon fee rule to delete.
+     */
     public void deleteWeatherPhenomenonFeeRuleById(UUID id)
     {
         weatherPhenomenonFeeRuleRepository.deleteById(id);
     }
 
 
+    /**
+     * @param weatherPhenomenonFeeRuleRequest Request containing the data for the new weather phenomenon fee rule.
+     * @return Weather phenomenon fee rule.
+     * @throws VehicleNotFoundException            Vehicle type not found.
+     * @throws RegionNotFoundException             Region not found.
+     * @throws PhenomenonCategoryNotFoundException Phenomenon category not found.
+     */
     private WeatherPhenomenonFeeRule mapRequestToModel(WeatherPhenomenonFeeRuleRequest weatherPhenomenonFeeRuleRequest)
-            throws VehicleNotFoundException, RegionNotFoundException, PhenomenonCategoryNotFoundException
     {
         WeatherPhenomenonFeeRule model = new WeatherPhenomenonFeeRule();
 

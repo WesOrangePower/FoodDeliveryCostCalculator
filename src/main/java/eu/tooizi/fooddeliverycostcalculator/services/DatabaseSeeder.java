@@ -2,6 +2,7 @@ package eu.tooizi.fooddeliverycostcalculator.services;
 
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.*;
 import eu.tooizi.fooddeliverycostcalculator.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Seeds the base data at every start of the application.
+ * Service that seeds the base data at every start of the application.
  */
 @Service
 public class DatabaseSeeder
@@ -23,14 +24,27 @@ public class DatabaseSeeder
     private final AirTemperatureFeeRuleService airTemperatureFeeRuleService;
     private final WindSpeedFeeRuleService windSpeedFeeRuleService;
 
-    public DatabaseSeeder(RegionRepository regionRepository,
-                          VehicleTypeRepository vehicleTypeRepository,
-                          WeatherPhenomenonRepository weatherPhenomenonRepository,
-                          PhenomenonCategoryRepository phenomenonCategoryRepository,
-                          RegionalBaseFeeRepository regionalBaseFeeRepository,
-                          WeatherPhenomenonFeeRuleRepository weatherPhenomenonFeeRuleRepository,
-                          AirTemperatureFeeRuleService airTemperatureFeeRuleService,
-                          WindSpeedFeeRuleService windSpeedFeeRuleService)
+    /**
+     * Constructor.
+     * all the repositories are autowired.
+     *
+     * @param regionRepository                   Repository for regions.
+     * @param vehicleTypeRepository              Repository for vehicle types.
+     * @param weatherPhenomenonRepository        Repository for weather phenomena.
+     * @param phenomenonCategoryRepository       Repository for phenomenon categories.
+     * @param regionalBaseFeeRepository          Repository for regional base fees.
+     * @param weatherPhenomenonFeeRuleRepository Repository for weather phenomenon fee rules.
+     * @param airTemperatureFeeRuleService       Service for air temperature fee rules.
+     * @param windSpeedFeeRuleService            Service for wind speed fee rules.
+     */
+    public DatabaseSeeder(@Autowired RegionRepository regionRepository,
+                          @Autowired VehicleTypeRepository vehicleTypeRepository,
+                          @Autowired WeatherPhenomenonRepository weatherPhenomenonRepository,
+                          @Autowired PhenomenonCategoryRepository phenomenonCategoryRepository,
+                          @Autowired RegionalBaseFeeRepository regionalBaseFeeRepository,
+                          @Autowired WeatherPhenomenonFeeRuleRepository weatherPhenomenonFeeRuleRepository,
+                          @Autowired AirTemperatureFeeRuleService airTemperatureFeeRuleService,
+                          @Autowired WindSpeedFeeRuleService windSpeedFeeRuleService)
     {
         this.regionRepository = regionRepository;
         this.vehicleTypeRepository = vehicleTypeRepository;

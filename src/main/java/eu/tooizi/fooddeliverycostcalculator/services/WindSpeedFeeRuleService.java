@@ -15,6 +15,9 @@ import java.util.Collection;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
 
+/**
+ * Service for managing wind speed fee rules with CRUD-like methods.
+ */
 @Service
 public class WindSpeedFeeRuleService
 {
@@ -22,6 +25,14 @@ public class WindSpeedFeeRuleService
     private final VehicleTypeRepository vehicleTypeRepository;
     private final RegionRepository regionRepository;
 
+    /**
+     * Constructor.
+     * All fields are autowired.
+     *
+     * @param windSpeedFeeRuleRepository Repository for wind speed fee rules.
+     * @param vehicleTypeRepository      Repository for vehicle types.
+     * @param regionRepository           Repository for regions.
+     */
     public WindSpeedFeeRuleService(@Autowired WindSpeedFeeRuleRepository windSpeedFeeRuleRepository,
                                    @Autowired VehicleTypeRepository vehicleTypeRepository,
                                    @Autowired RegionRepository regionRepository)
@@ -31,22 +42,39 @@ public class WindSpeedFeeRuleService
         this.regionRepository = regionRepository;
     }
 
+    /**
+     * Fetches all wind speed fee rules from the database.
+     *
+     * @return Collection of wind speed fee rules.
+     */
     public Collection<WindSpeedFeeRule> getWindSpeedFeeRules()
     {
         return StreamSupport.stream(windSpeedFeeRuleRepository.findAll().spliterator(), false)
                 .toList();
     }
 
+    /**
+     * Creates a new wind speed fee rule and saves it to the database.
+     *
+     * @param windSpeedFeeRuleRequest Request containing the data for the new wind speed fee rule.
+     * @throws VehicleNotFoundException          If the specified vehicle type id does not exist in the database.
+     * @throws RegionNotFoundException           If the specified region id does not exist in the database.
+     * @throws WindSpeedFeeRuleOverlapsException If wind speed ranges overlap with an existing rule.
+     */
     public void addWindSpeedFeeRule(WindSpeedFeeRuleRequest windSpeedFeeRuleRequest)
-            throws VehicleNotFoundException, RegionNotFoundException
     {
         WindSpeedFeeRule windSpeedFeeRule = mapRequestToModel(windSpeedFeeRuleRequest);
         addWindSpeedFeeRule(windSpeedFeeRule);
     }
 
 
+    /**
+     * Saves the wind speed fee rule to the database.
+     *
+     * @param windSpeedFeeRule Wind speed fee rule to save.
+     * @throws WindSpeedFeeRuleOverlapsException If wind speed ranges overlap with an existing rule.
+     */
     public void addWindSpeedFeeRule(WindSpeedFeeRule windSpeedFeeRule)
-            throws WindSpeedFeeRuleOverlapsException
     {
         RangeFeeRuleOverlapChecker<WindSpeedFeeRule> overlapChecker = new RangeFeeRuleOverlapChecker<>();
 
@@ -59,13 +87,23 @@ public class WindSpeedFeeRuleService
         windSpeedFeeRuleRepository.save(windSpeedFeeRule);
     }
 
+    /**
+     * Deletes the wind speed fee rule with the specified id from the database.
+     *
+     * @param id Id of the wind speed fee rule to delete.
+     */
     public void deleteWindSpeedFeeRuleById(UUID id)
     {
         windSpeedFeeRuleRepository.deleteById(id);
     }
 
+    /**
+     * @param windSpeedFeeRuleRequest Request containing the data for the new wind speed fee rule.
+     * @return Wind speed fee rule model.
+     * @throws VehicleNotFoundException If the specified vehicle type id does not exist in the database.
+     * @throws RegionNotFoundException  If the specified region id does not exist in the database.
+     */
     private WindSpeedFeeRule mapRequestToModel(WindSpeedFeeRuleRequest windSpeedFeeRuleRequest)
-            throws VehicleNotFoundException, RegionNotFoundException
     {
         WindSpeedFeeRule model = new WindSpeedFeeRule();
 

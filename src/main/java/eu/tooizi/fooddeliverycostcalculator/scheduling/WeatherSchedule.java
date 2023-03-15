@@ -5,12 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+/**
+ * A scheduler component that fetches weather data from the National Weather Service API
+ */
 @Component
 public class WeatherSchedule
 {
 
     private final WeatherStatusUpdateService weatherStatusUpdateService;
 
+    /**
+     * Constructor.
+     * Field is autowired.
+     *
+     * @param weatherStatusUpdateService The service that fetches weather data from the API
+     */
     public WeatherSchedule(@Autowired WeatherStatusUpdateService weatherStatusUpdateService)
     {
         this.weatherStatusUpdateService = weatherStatusUpdateService;

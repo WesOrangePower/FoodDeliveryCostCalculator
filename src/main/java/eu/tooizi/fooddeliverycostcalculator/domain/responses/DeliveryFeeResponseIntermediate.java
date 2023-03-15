@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 
+/**
+ * Intermediate response for delivery fee.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
