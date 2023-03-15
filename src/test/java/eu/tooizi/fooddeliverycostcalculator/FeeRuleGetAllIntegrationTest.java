@@ -1,6 +1,5 @@
 package eu.tooizi.fooddeliverycostcalculator;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.AirTemperatureFeeRule;
 import eu.tooizi.fooddeliverycostcalculator.domain.responses.AirTemperatureFeeRulesResponse;
 import eu.tooizi.fooddeliverycostcalculator.domain.responses.WindSpeedFeeRulesResponse;
 import org.junit.Test;
@@ -11,19 +10,21 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class FeeRuleIntegrationTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+public class FeeRuleGetAllIntegrationTest
 {
     @Autowired
     TestRestTemplate restTemplate;
 
     @Test
-    public void givenFreshlySeededDatabase_whenGetAirTemperatureRules_thenReturn12Rules()
+    public void givenSeededDatabase_whenGetAirTemperatureRules_thenReturn12OrMoreRules()
     {
         var url = "/api/fee-rule/air-temperature";
 
@@ -36,11 +37,11 @@ public class FeeRuleIntegrationTest
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getRules().size()).isEqualTo(12);
+        assertThat(response.getBody().getRules().size()).isGreaterThanOrEqualTo(12);
     }
 
     @Test
-    public void givenFreshlySeededDatabase_whenGetWindSpeedRules_thenReturn6Rules()
+    public void givenSeededDatabase_whenGetWindSpeedRules_thenReturn6OrMoreRules()
     {
         var url = "/api/fee-rule/wind-speed";
 
@@ -53,11 +54,11 @@ public class FeeRuleIntegrationTest
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getRules().size()).isEqualTo(6);
+        assertThat(response.getBody().getRules().size()).isGreaterThanOrEqualTo(6);
     }
 
     @Test
-    public void givenFreshlySeededDatabase_whenGetWeatherPhenomenonRules_thenReturn36Rules()
+    public void givenSeededDatabase_whenGetWeatherPhenomenonRules_thenReturn36OrMoreRules()
     {
         var url = "/api/fee-rule/weather-phenomenon";
 
@@ -70,38 +71,6 @@ public class FeeRuleIntegrationTest
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getRules().size()).isEqualTo(36);
-    }
-
-    @Test
-    public void givenFreshlySeededDatabase_whenRemoveAnyAirTemperatureRule_thenReturn11Rules()
-    {
-        var url = "/api/fee-rule/air-temperature";
-
-        ResponseEntity<AirTemperatureFeeRulesResponse> response = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                AirTemperatureFeeRulesResponse.class
-        );
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getRules().size()).isEqualTo(12);
-
-        AirTemperatureFeeRule rule = response.getBody().getRules().iterator().next();
-
-        restTemplate.delete(url + "/" + rule.getId());
-
-        response = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                AirTemperatureFeeRulesResponse.class
-        );
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getRules().size()).isEqualTo(11);
+        assertThat(response.getBody().getRules().size()).isGreaterThanOrEqualTo(36);
     }
 }

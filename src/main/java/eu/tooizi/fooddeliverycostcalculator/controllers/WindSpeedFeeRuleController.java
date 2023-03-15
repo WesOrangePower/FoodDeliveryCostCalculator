@@ -1,6 +1,7 @@
 package eu.tooizi.fooddeliverycostcalculator.controllers;
 
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WindSpeedFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.domain.requests.WindSpeedFeeRuleRequest;
 import eu.tooizi.fooddeliverycostcalculator.domain.responses.WindSpeedFeeRulesResponse;
 import eu.tooizi.fooddeliverycostcalculator.services.WindSpeedFeeRuleService;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,13 @@ public class WindSpeedFeeRuleController
     }
 
     @PostMapping("/wind-speed")
-    public void create(@RequestParam(name = "wind_speed_fee_rule") WindSpeedFeeRule windSpeedFeeRule)
+    public void create(@RequestBody WindSpeedFeeRuleRequest windSpeedFeeRuleRequest)
     {
-        windSpeedFeeRuleService.addWindSpeedFeeRule(windSpeedFeeRule);
+        windSpeedFeeRuleService.addWindSpeedFeeRule(windSpeedFeeRuleRequest);
     }
 
-    @DeleteMapping("/wind-speed")
-    public void deleteWindSpeed(@RequestParam UUID id)
+    @DeleteMapping("/wind-speed/{id}")
+    public void deleteWindSpeed(@PathVariable UUID id)
     {
         windSpeedFeeRuleService.deleteWindSpeedFeeRuleById(id);
     }

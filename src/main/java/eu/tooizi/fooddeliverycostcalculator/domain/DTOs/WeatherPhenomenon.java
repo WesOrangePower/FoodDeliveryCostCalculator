@@ -25,11 +25,11 @@ public class WeatherPhenomenon
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name = "phenomenon_category_id")
     private PhenomenonCategory phenomenonCategory;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "weatherPhenomenon")
+    @OneToMany( mappedBy = "weatherPhenomenon")
     private Collection<WeatherConditions> weatherConditions = new ArrayList<>();
 
     public Collection<WeatherConditions> getWeatherConditions()

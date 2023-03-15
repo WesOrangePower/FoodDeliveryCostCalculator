@@ -12,14 +12,14 @@ public class RegionalBaseFee
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "vehicle_type_id", nullable = false)
     private VehicleType vehicleType;
 
     @Column(name = "base_fee", nullable = false)
     private double baseFee;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
 

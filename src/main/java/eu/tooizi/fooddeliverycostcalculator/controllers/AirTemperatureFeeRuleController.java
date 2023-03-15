@@ -1,8 +1,10 @@
 package eu.tooizi.fooddeliverycostcalculator.controllers;
 
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.AirTemperatureFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.domain.requests.AirTemperatureFeeRuleRequest;
 import eu.tooizi.fooddeliverycostcalculator.domain.responses.AirTemperatureFeeRulesResponse;
 import eu.tooizi.fooddeliverycostcalculator.services.AirTemperatureFeeRuleService;
+import eu.tooizi.fooddeliverycostcalculator.services.exceptions.AirTemperatureFeeRuleOverlapsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,13 +31,13 @@ public class AirTemperatureFeeRuleController
     }
 
     @PostMapping("/air-temperature")
-    public void create(@RequestParam(name = "air_temperature_fee_rule") AirTemperatureFeeRule airTemperatureFeeRule)
+    public void create(@RequestBody AirTemperatureFeeRuleRequest airTemperatureFeeRuleRequest)
     {
-        airTemperatureFeeRuleService.addAirTemperatureFeeRule(airTemperatureFeeRule);
+        airTemperatureFeeRuleService.addAirTemperatureFeeRule(airTemperatureFeeRuleRequest);
     }
 
-    @DeleteMapping("/air-temperature")
-    public void delete(@RequestParam UUID id)
+    @DeleteMapping("/air-temperature/{id}")
+    public void delete(@PathVariable UUID id)
     {
         airTemperatureFeeRuleService.deleteAirTemperatureFeeRuleById(id);
     }

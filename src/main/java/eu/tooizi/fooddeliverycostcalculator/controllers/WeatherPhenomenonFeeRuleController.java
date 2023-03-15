@@ -1,6 +1,7 @@
 package eu.tooizi.fooddeliverycostcalculator.controllers;
 
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherPhenomenonFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.domain.requests.WeatherPhenomenonFeeRuleRequest;
 import eu.tooizi.fooddeliverycostcalculator.domain.responses.WeatherPhenomenonFeeRulesResponse;
 import eu.tooizi.fooddeliverycostcalculator.services.WeatherPhenomenonFeeRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,13 @@ public class WeatherPhenomenonFeeRuleController
     }
 
     @PostMapping("/weather-phenomenon")
-    public void create(WeatherPhenomenonFeeRule weatherPhenomenonFeeRule)
+    public void create(@RequestBody WeatherPhenomenonFeeRuleRequest weatherPhenomenonFeeRuleRequest)
     {
-        weatherPhenomenonFeeRuleService.addWeatherPhenomenonFeeRule(weatherPhenomenonFeeRule);
+        weatherPhenomenonFeeRuleService.addWeatherPhenomenonFeeRule(weatherPhenomenonFeeRuleRequest);
     }
 
-    @DeleteMapping("/weather-phenomenon")
-    public void delete(@RequestParam UUID id)
+    @DeleteMapping("/weather-phenomenon/{id}")
+    public void delete(@PathVariable UUID id)
     {
         weatherPhenomenonFeeRuleService.deleteWeatherPhenomenonFeeRuleById(id);
     }

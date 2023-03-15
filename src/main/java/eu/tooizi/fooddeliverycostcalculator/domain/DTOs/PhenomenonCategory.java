@@ -33,7 +33,7 @@ public class PhenomenonCategory
     @Column(name = "name", unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "phenomenonCategory", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "phenomenonCategory", orphanRemoval = true)
     @JsonIgnore
     private Collection<WeatherPhenomenon> weatherPhenomena = new ArrayList<>();
 }

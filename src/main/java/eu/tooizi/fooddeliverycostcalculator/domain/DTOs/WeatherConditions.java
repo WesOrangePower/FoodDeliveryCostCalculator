@@ -29,11 +29,11 @@ public class WeatherConditions
     @Column(name = "station_wmo_code", nullable = false)
     private String stationWmoCode;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name = "weather_phenomenon_id")
     private WeatherPhenomenon weatherPhenomenon;
 

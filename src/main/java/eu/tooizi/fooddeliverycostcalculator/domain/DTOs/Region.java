@@ -31,7 +31,7 @@ public class Region
     private UUID id;
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-    @OneToMany(mappedBy = "region", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "region", orphanRemoval = true)
     @JsonIgnore
     private Collection<RegionalBaseFee> regionalBaseFees = new ArrayList<>();
     @OneToMany(mappedBy = "region", orphanRemoval = true)
