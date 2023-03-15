@@ -1,13 +1,13 @@
 package eu.tooizi.fooddeliverycostcalculator.services;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WindSpeedFeeRule;
-import eu.tooizi.fooddeliverycostcalculator.domain.requests.WindSpeedFeeRuleRequest;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.WindSpeedFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.exceptions.RegionNotFoundException;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.exceptions.VehicleNotFoundException;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.exceptions.WindSpeedFeeRuleOverlapsException;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.requests.WindSpeedFeeRuleRequest;
 import eu.tooizi.fooddeliverycostcalculator.repositories.RegionRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.VehicleTypeRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.WindSpeedFeeRuleRepository;
-import eu.tooizi.fooddeliverycostcalculator.services.exceptions.RegionNotFoundException;
-import eu.tooizi.fooddeliverycostcalculator.services.exceptions.VehicleNotFoundException;
-import eu.tooizi.fooddeliverycostcalculator.services.exceptions.WindSpeedFeeRuleOverlapsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,7 +90,7 @@ public class WindSpeedFeeRuleService
     /**
      * Deletes the wind speed fee rule with the specified id from the database.
      *
-     * @param id Id of the wind speed fee rule to delete.
+     * @param id ID of the wind speed fee rule to delete.
      */
     public void deleteWindSpeedFeeRuleById(UUID id)
     {

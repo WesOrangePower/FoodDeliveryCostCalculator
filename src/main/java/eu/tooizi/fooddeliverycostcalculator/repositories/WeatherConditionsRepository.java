@@ -1,7 +1,7 @@
 package eu.tooizi.fooddeliverycostcalculator.repositories;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.Region;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherConditions;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.Region;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.WeatherConditions;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

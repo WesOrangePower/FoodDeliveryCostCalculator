@@ -1,13 +1,13 @@
 package eu.tooizi.fooddeliverycostcalculator.services;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.AirTemperatureFeeRule;
-import eu.tooizi.fooddeliverycostcalculator.domain.requests.AirTemperatureFeeRuleRequest;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.AirTemperatureFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.exceptions.AirTemperatureFeeRuleOverlapsException;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.exceptions.RegionNotFoundException;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.exceptions.VehicleNotFoundException;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.requests.AirTemperatureFeeRuleRequest;
 import eu.tooizi.fooddeliverycostcalculator.repositories.AirTemperatureFeeRuleRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.RegionRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.VehicleTypeRepository;
-import eu.tooizi.fooddeliverycostcalculator.services.exceptions.AirTemperatureFeeRuleOverlapsException;
-import eu.tooizi.fooddeliverycostcalculator.services.exceptions.RegionNotFoundException;
-import eu.tooizi.fooddeliverycostcalculator.services.exceptions.VehicleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,7 +93,7 @@ public class AirTemperatureFeeRuleService
     /**
      * Deletes an air temperature fee rule with the specified id from the database.
      *
-     * @param id Id of the air temperature fee rule to delete.
+     * @param id ID of the air temperature fee rule to delete.
      */
     public void deleteAirTemperatureFeeRuleById(UUID id)
     {

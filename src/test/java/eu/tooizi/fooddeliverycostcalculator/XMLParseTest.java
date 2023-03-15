@@ -1,7 +1,7 @@
 package eu.tooizi.fooddeliverycostcalculator;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.weather.Observations;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.weather.Observations;
 import eu.tooizi.fooddeliverycostcalculator.services.WeatherStatusUpdateService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

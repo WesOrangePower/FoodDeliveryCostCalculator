@@ -1,15 +1,15 @@
 package eu.tooizi.fooddeliverycostcalculator.services;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.Region;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherConditions;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherPhenomenon;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.weather.Observations;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.weather.Station;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.Region;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.WeatherConditions;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.WeatherPhenomenon;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.weather.Observations;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.weather.Station;
 import eu.tooizi.fooddeliverycostcalculator.repositories.RegionRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.WeatherConditionsRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.WeatherPhenomenonRepository;
-import eu.tooizi.fooddeliverycostcalculator.scheduling.WeatherSchedule;
+import eu.tooizi.fooddeliverycostcalculator.services.scheduling.WeatherSchedule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

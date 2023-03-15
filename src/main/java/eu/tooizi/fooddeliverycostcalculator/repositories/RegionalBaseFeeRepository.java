@@ -1,8 +1,8 @@
 package eu.tooizi.fooddeliverycostcalculator.repositories;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.Region;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.RegionalBaseFee;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.VehicleType;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.Region;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.RegionalBaseFee;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.VehicleType;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

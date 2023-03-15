@@ -1,14 +1,14 @@
 package eu.tooizi.fooddeliverycostcalculator.services;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherPhenomenonFeeRule;
-import eu.tooizi.fooddeliverycostcalculator.domain.requests.WeatherPhenomenonFeeRuleRequest;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.WeatherPhenomenonFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.exceptions.PhenomenonCategoryNotFoundException;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.exceptions.RegionNotFoundException;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.exceptions.VehicleNotFoundException;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.requests.WeatherPhenomenonFeeRuleRequest;
 import eu.tooizi.fooddeliverycostcalculator.repositories.PhenomenonCategoryRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.RegionRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.VehicleTypeRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.WeatherPhenomenonFeeRuleRepository;
-import eu.tooizi.fooddeliverycostcalculator.services.exceptions.PhenomenonCategoryNotFoundException;
-import eu.tooizi.fooddeliverycostcalculator.services.exceptions.RegionNotFoundException;
-import eu.tooizi.fooddeliverycostcalculator.services.exceptions.VehicleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

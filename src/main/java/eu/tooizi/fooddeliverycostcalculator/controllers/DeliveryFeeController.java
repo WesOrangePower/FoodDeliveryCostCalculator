@@ -1,8 +1,11 @@
 package eu.tooizi.fooddeliverycostcalculator.controllers;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.responses.DeliveryFeeResponse;
-import eu.tooizi.fooddeliverycostcalculator.domain.responses.DeliveryFeeResponseIntermediate;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.responses.DeliveryFeeResponse;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.responses.DeliveryFeeResponseIntermediate;
 import eu.tooizi.fooddeliverycostcalculator.services.DeliveryFeeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +43,11 @@ public class DeliveryFeeController
      * @return Response of delivery fee.
      */
     @GetMapping("/api/delivery-fee")
+    @Operation(summary = "Calculates delivery fee based on region and vehicle type.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully calculated delivery fee or delivery is prohibited by rule."),
+            @ApiResponse(responseCode = "404", description = "Region, vehicle type, base fee or weather data for the region not found."),
+    })
     public ResponseEntity<DeliveryFeeResponse> getDeliveryFee(@RequestParam String region,
                                                               @RequestParam(name = "vehicle_type") String vehicleType)
     {

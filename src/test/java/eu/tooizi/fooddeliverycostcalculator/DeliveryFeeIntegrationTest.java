@@ -1,10 +1,10 @@
 package eu.tooizi.fooddeliverycostcalculator;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.Region;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.VehicleType;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherConditions;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherPhenomenon;
-import eu.tooizi.fooddeliverycostcalculator.domain.responses.DeliveryFeeResponse;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.Region;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.VehicleType;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.WeatherConditions;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.WeatherPhenomenon;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.responses.DeliveryFeeResponse;
 import eu.tooizi.fooddeliverycostcalculator.repositories.RegionRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.VehicleTypeRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.WeatherConditionsRepository;
@@ -47,7 +47,6 @@ public class DeliveryFeeIntegrationTest
 
     @Test
     public void givenRegionIsTallinnAndVehicleTypeIsCar_whenGetDeliveryFee_thenReturnDeliveryFeeResponse()
-            throws Exception
     {
         var car = "Car";
         var region = "Tallinn";
@@ -65,7 +64,6 @@ public class DeliveryFeeIntegrationTest
 
     @Test
     public void givenExtremeWeatherAndRegionIsTallinnAndVehicleTypeIsBike_whenGetDeliveryFee_thenReturnErroredDeliveryFeeResponse()
-            throws Exception
     {
         insertExtremeWeatherInTallinn();
 
@@ -84,7 +82,6 @@ public class DeliveryFeeIntegrationTest
 
     @Test
     public void givenExtremeWeatherAndRegionIsTallinnAndVehicleTypeIsScooter_whenGetDeliveryFee_thenReturnErroredDeliveryFeeResponse()
-        throws Exception
     {
         insertExtremeWeatherInTallinn();
 
@@ -103,7 +100,6 @@ public class DeliveryFeeIntegrationTest
 
     @Test
     public void testSmokeAllRestCombinations()
-            throws Exception
     {
         final String urlTemplate = "/api/delivery-fee?region=%s&vehicle_type=%s";
 

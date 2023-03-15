@@ -1,8 +1,8 @@
 package eu.tooizi.fooddeliverycostcalculator.repositories;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.AirTemperatureFeeRule;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.Region;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.VehicleType;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.AirTemperatureFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.Region;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.VehicleType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

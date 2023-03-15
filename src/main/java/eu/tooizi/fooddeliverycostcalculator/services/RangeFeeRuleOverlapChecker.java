@@ -1,6 +1,6 @@
 package eu.tooizi.fooddeliverycostcalculator.services;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.RangeFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.RangeFeeRule;
 
 import java.util.Optional;
 

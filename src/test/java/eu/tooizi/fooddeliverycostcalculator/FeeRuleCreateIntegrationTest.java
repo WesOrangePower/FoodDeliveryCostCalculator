@@ -1,15 +1,13 @@
 package eu.tooizi.fooddeliverycostcalculator;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.PhenomenonCategory;
-import eu.tooizi.fooddeliverycostcalculator.domain.requests.AirTemperatureFeeRuleRequest;
-import eu.tooizi.fooddeliverycostcalculator.domain.requests.WeatherPhenomenonFeeRuleRequest;
-import eu.tooizi.fooddeliverycostcalculator.domain.requests.WindSpeedFeeRuleRequest;
-import eu.tooizi.fooddeliverycostcalculator.domain.responses.AirTemperatureFeeRulesResponse;
-import eu.tooizi.fooddeliverycostcalculator.domain.responses.WindSpeedFeeRulesResponse;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.requests.AirTemperatureFeeRuleRequest;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.requests.WeatherPhenomenonFeeRuleRequest;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.requests.WindSpeedFeeRuleRequest;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.responses.AirTemperatureFeeRulesResponse;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.responses.WindSpeedFeeRulesResponse;
 import eu.tooizi.fooddeliverycostcalculator.repositories.PhenomenonCategoryRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.RegionRepository;
 import eu.tooizi.fooddeliverycostcalculator.repositories.VehicleTypeRepository;
-import eu.tooizi.fooddeliverycostcalculator.repositories.WeatherPhenomenonRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

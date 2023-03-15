@@ -1,10 +1,10 @@
 package eu.tooizi.fooddeliverycostcalculator.services;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.*;
-import eu.tooizi.fooddeliverycostcalculator.domain.responses.DeliveryFeeResponseIntermediate;
-import eu.tooizi.fooddeliverycostcalculator.domain.responses.DeliveryFeeResponseIntermediateFactory;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.*;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.exceptions.UndeliverableException;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.responses.DeliveryFeeResponseIntermediate;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.responses.DeliveryFeeResponseIntermediateFactory;
 import eu.tooizi.fooddeliverycostcalculator.repositories.*;
-import eu.tooizi.fooddeliverycostcalculator.services.exceptions.UndeliverableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;

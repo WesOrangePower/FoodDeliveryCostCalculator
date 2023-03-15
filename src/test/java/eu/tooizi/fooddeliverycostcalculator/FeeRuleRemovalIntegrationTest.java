@@ -1,9 +1,9 @@
 package eu.tooizi.fooddeliverycostcalculator;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.AirTemperatureFeeRule;
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WindSpeedFeeRule;
-import eu.tooizi.fooddeliverycostcalculator.domain.responses.AirTemperatureFeeRulesResponse;
-import eu.tooizi.fooddeliverycostcalculator.domain.responses.WindSpeedFeeRulesResponse;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.AirTemperatureFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.WindSpeedFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.responses.AirTemperatureFeeRulesResponse;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.responses.WindSpeedFeeRulesResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

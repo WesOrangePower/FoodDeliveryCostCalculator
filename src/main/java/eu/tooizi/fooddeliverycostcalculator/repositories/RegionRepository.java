@@ -1,6 +1,6 @@
 package eu.tooizi.fooddeliverycostcalculator.repositories;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.Region;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.Region;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

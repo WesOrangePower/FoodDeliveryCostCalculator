@@ -1,6 +1,6 @@
 package eu.tooizi.fooddeliverycostcalculator.services;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.*;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.*;
 import eu.tooizi.fooddeliverycostcalculator.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,9 +94,9 @@ public class DatabaseSeeder
         paernu.setWeatherStationName("Pärnu");
 
         regionRepository.saveAll(List.of(tallinn, tartu, paernu));
-        makeRegionalBaseFees(3d, vehicles, tallinn);
-        makeRegionalBaseFees(2.5, vehicles, tartu);
-        makeRegionalBaseFees(2d, vehicles, paernu);
+        makeRegionalBaseFees(4d, vehicles, tallinn);
+        makeRegionalBaseFees(3.5, vehicles, tartu);
+        makeRegionalBaseFees(3d, vehicles, paernu);
 
 
         /*
@@ -237,13 +237,13 @@ public class DatabaseSeeder
 
     }
 
-    private void makeRegionalBaseFees(double bikeFee, List<VehicleType> vehicles, Region region)
+    private void makeRegionalBaseFees(double carFee, List<VehicleType> vehicles, Region region)
     {
         for (int i = 0; i < vehicles.size(); i++)
         {
             RegionalBaseFee fee = new RegionalBaseFee();
             fee.setVehicleType(vehicles.get(i));
-            fee.setBaseFee(bikeFee + (i * .5));
+            fee.setBaseFee(carFee - (i * .5));
             fee.setRegion(region);
             regionalBaseFeeRepository.save(fee);
         }

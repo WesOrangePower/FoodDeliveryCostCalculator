@@ -1,9 +1,10 @@
 package eu.tooizi.fooddeliverycostcalculator.repositories;
 
-import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.PhenomenonCategory;
+import eu.tooizi.fooddeliverycostcalculator.DTOs.domain.PhenomenonCategory;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -18,4 +19,6 @@ public interface PhenomenonCategoryRepository extends CrudRepository<PhenomenonC
      */
     @Query("select p from PhenomenonCategory p where p.name = \"" + PhenomenonCategory.DEFAULT_NAME + "\"")
     PhenomenonCategory findDefault();
+
+    Optional<PhenomenonCategory> findFirstByName(String category);
 }
