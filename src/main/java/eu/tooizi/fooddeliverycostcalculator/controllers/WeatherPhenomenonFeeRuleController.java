@@ -3,14 +3,13 @@ package eu.tooizi.fooddeliverycostcalculator.controllers;
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherPhenomenonFeeRule;
 import eu.tooizi.fooddeliverycostcalculator.services.WeatherPhenomenonFeeRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.UUID;
 
-@Controller
-@RequestMapping("/api/fee-rules")
+@RestController
+@RequestMapping("/api/fee-rule")
 public class WeatherPhenomenonFeeRuleController
 {
     private final WeatherPhenomenonFeeRuleService weatherPhenomenonFeeRuleService;
@@ -23,6 +22,7 @@ public class WeatherPhenomenonFeeRuleController
     @GetMapping("/weather-phenomenon")
     public Collection<WeatherPhenomenonFeeRule> getAll()
     {
+        //TODO: Circular
         return weatherPhenomenonFeeRuleService.getWeatherPhenomenonFeeRules();
     }
 

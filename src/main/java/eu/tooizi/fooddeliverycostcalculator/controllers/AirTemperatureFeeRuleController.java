@@ -10,11 +10,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/fee-rule")
-public class FeeRuleController
+public class AirTemperatureFeeRuleController
 {
     private final AirTemperatureFeeRuleService airTemperatureFeeRuleService;
 
-    public FeeRuleController(@Autowired AirTemperatureFeeRuleService airTemperatureFeeRuleService)
+    public AirTemperatureFeeRuleController(@Autowired AirTemperatureFeeRuleService airTemperatureFeeRuleService)
     {
         this.airTemperatureFeeRuleService = airTemperatureFeeRuleService;
     }
@@ -22,6 +22,7 @@ public class FeeRuleController
     @GetMapping("/air-temperature")
     public Collection<AirTemperatureFeeRule> getAll()
     {
+        //TODO: Circular
         return airTemperatureFeeRuleService.getAirTemperatureFeeRules();
     }
 

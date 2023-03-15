@@ -2,16 +2,13 @@ package eu.tooizi.fooddeliverycostcalculator.controllers;
 
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WindSpeedFeeRule;
 import eu.tooizi.fooddeliverycostcalculator.services.WindSpeedFeeRuleService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.UUID;
 
-@Controller
+@RestController
+@RequestMapping("/api/fee-rule")
 public class WindSpeedFeeRuleController
 {
     private final WindSpeedFeeRuleService windSpeedFeeRuleService;
@@ -21,19 +18,20 @@ public class WindSpeedFeeRuleController
         this.windSpeedFeeRuleService = windSpeedFeeRuleService;
     }
 
-    @GetMapping("/api/fee-rules/wind-speed")
+    @GetMapping("/wind-speed")
     public Collection<WindSpeedFeeRule> getAll()
     {
+        //TODO: Circular
         return windSpeedFeeRuleService.getWindSpeedFeeRules();
     }
 
-    @PostMapping("/api/fee-rule/wind-speed")
+    @PostMapping("/wind-speed")
     public void create(@RequestParam(name = "wind_speed_fee_rule") WindSpeedFeeRule windSpeedFeeRule)
     {
         windSpeedFeeRuleService.addWindSpeedFeeRule(windSpeedFeeRule);
     }
 
-    @DeleteMapping("/api/fee-rule/wind-speed")
+    @DeleteMapping("/wind-speed")
     public void deleteWindSpeed(@RequestParam UUID id)
     {
         windSpeedFeeRuleService.deleteWindSpeedFeeRuleById(id);
