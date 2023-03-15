@@ -1,5 +1,6 @@
 package eu.tooizi.fooddeliverycostcalculator.domain.DTOs;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,11 +27,14 @@ public class VehicleType
     private String name;
 
     @OneToMany(mappedBy = "vehicleType", orphanRemoval = true)
+    @JsonIgnore
     private Set<WindSpeedFeeRule> windSpeedFeeRules = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "vehicleType", orphanRemoval = true)
+    @JsonIgnore
     private Set<AirTemperatureFeeRule> airTemperatureFeeRules = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "vehicleType", orphanRemoval = true)
+    @JsonIgnore
     private Set<WeatherPhenomenonFeeRule> weatherPhenomenonFeeRules = new LinkedHashSet<>();
 }

@@ -1,6 +1,7 @@
 package eu.tooizi.fooddeliverycostcalculator.controllers;
 
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.AirTemperatureFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.domain.responses.AirTemperatureFeeRulesResponse;
 import eu.tooizi.fooddeliverycostcalculator.services.AirTemperatureFeeRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +21,11 @@ public class AirTemperatureFeeRuleController
     }
 
     @GetMapping("/air-temperature")
-    public Collection<AirTemperatureFeeRule> getAll()
+    public AirTemperatureFeeRulesResponse getAll()
     {
-        //TODO: Circular
-        return airTemperatureFeeRuleService.getAirTemperatureFeeRules();
+        return new AirTemperatureFeeRulesResponse(
+                airTemperatureFeeRuleService.getAirTemperatureFeeRules()
+        );
     }
 
     @PostMapping("/air-temperature")

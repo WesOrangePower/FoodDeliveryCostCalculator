@@ -1,10 +1,10 @@
 package eu.tooizi.fooddeliverycostcalculator.controllers;
 
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WindSpeedFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.domain.responses.WindSpeedFeeRulesResponse;
 import eu.tooizi.fooddeliverycostcalculator.services.WindSpeedFeeRuleService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.UUID;
 
 @RestController
@@ -19,10 +19,11 @@ public class WindSpeedFeeRuleController
     }
 
     @GetMapping("/wind-speed")
-    public Collection<WindSpeedFeeRule> getAll()
+    public WindSpeedFeeRulesResponse getAll()
     {
-        //TODO: Circular
-        return windSpeedFeeRuleService.getWindSpeedFeeRules();
+        return new WindSpeedFeeRulesResponse(
+                windSpeedFeeRuleService.getWindSpeedFeeRules()
+        );
     }
 
     @PostMapping("/wind-speed")

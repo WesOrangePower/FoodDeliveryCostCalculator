@@ -33,8 +33,8 @@ public class WeatherConditions
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
-    @JoinColumn(name = "weather_phenomenon_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "weather_phenomenon_id")
     private WeatherPhenomenon weatherPhenomenon;
 
     @Column(name = "temperature_celsius")

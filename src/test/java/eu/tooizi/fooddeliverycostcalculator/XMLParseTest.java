@@ -13,7 +13,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @SpringBootTest
-class FoodDeliveryCostCalculatorApplicationTests
+class XMLParseTest
 {
 
     @Test

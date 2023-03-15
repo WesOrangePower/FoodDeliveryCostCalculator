@@ -29,6 +29,16 @@ public class WeatherPhenomenon
     @JoinColumn(name = "phenomenon_category_id")
     private PhenomenonCategory phenomenonCategory;
 
-    @OneToMany(mappedBy = "weatherPhenomenon", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "weatherPhenomenon")
     private Collection<WeatherConditions> weatherConditions = new ArrayList<>();
+
+    public Collection<WeatherConditions> getWeatherConditions()
+    {
+        return weatherConditions;
+    }
+
+    public void setWeatherConditions(Collection<WeatherConditions> weatherConditions)
+    {
+        this.weatherConditions = weatherConditions;
+    }
 }

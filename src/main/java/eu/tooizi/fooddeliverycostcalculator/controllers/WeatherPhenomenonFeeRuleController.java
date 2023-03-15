@@ -1,6 +1,7 @@
 package eu.tooizi.fooddeliverycostcalculator.controllers;
 
 import eu.tooizi.fooddeliverycostcalculator.domain.DTOs.WeatherPhenomenonFeeRule;
+import eu.tooizi.fooddeliverycostcalculator.domain.responses.WeatherPhenomenonFeeRulesResponse;
 import eu.tooizi.fooddeliverycostcalculator.services.WeatherPhenomenonFeeRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +21,11 @@ public class WeatherPhenomenonFeeRuleController
     }
 
     @GetMapping("/weather-phenomenon")
-    public Collection<WeatherPhenomenonFeeRule> getAll()
+    public WeatherPhenomenonFeeRulesResponse getAll()
     {
-        //TODO: Circular
-        return weatherPhenomenonFeeRuleService.getWeatherPhenomenonFeeRules();
+        return new WeatherPhenomenonFeeRulesResponse(
+                weatherPhenomenonFeeRuleService.getWeatherPhenomenonFeeRules()
+        );
     }
 
     @PostMapping("/weather-phenomenon")

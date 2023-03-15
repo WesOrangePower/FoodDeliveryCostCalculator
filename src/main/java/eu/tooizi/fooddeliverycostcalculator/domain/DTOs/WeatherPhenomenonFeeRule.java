@@ -1,5 +1,6 @@
 package eu.tooizi.fooddeliverycostcalculator.domain.DTOs;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,10 +24,12 @@ public class WeatherPhenomenonFeeRule implements FeeRule
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "vehicle_type_id", nullable = false)
+    @JsonIgnore
     private VehicleType vehicleType;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "region_id", nullable = false)
+    @JsonIgnore
     private Region region;
 
     @ManyToOne(optional = false)

@@ -1,12 +1,21 @@
 package eu.tooizi.fooddeliverycostcalculator.domain.DTOs;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PhenomenonCategory
 {
     public static final String DEFAULT_NAME = "Clear or unknown";
@@ -25,39 +34,6 @@ public class PhenomenonCategory
     private String name;
 
     @OneToMany(mappedBy = "phenomenonCategory", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonIgnore
     private Collection<WeatherPhenomenon> weatherPhenomena = new ArrayList<>();
-
-    public PhenomenonCategory(UUID id, String name)
-    {
-        this.id = id;
-        this.name = name;
-    }
-
-    public PhenomenonCategory()
-    {
-    }
-
-    public Collection<WeatherPhenomenon> getWeatherPhenomena() {return weatherPhenomena;}
-
-    public void setWeatherPhenomena(Collection<WeatherPhenomenon> weatherPhenomena) {this.weatherPhenomena = weatherPhenomena;}
-
-    public UUID getId()
-    {
-        return id;
-    }
-
-    public void setId(UUID id)
-    {
-        this.id = id;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
 }

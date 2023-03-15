@@ -31,7 +31,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DeliveryFeeIntegrationTest
 {
-
     @Autowired
     TestRestTemplate restTemplate;
 
@@ -45,7 +44,7 @@ public class DeliveryFeeIntegrationTest
     VehicleTypeRepository vehicleTypeRepository;
 
     @Test
-    public void givenRegionAndVehicleType_whenGetDeliveryFee_thenReturnDeliveryFeeResponse()
+    public void givenRegionIsTallinnAndVehicleTypeIsCar_whenGetDeliveryFee_thenReturnDeliveryFeeResponse()
             throws Exception
     {
         var car = "Car";
@@ -63,7 +62,7 @@ public class DeliveryFeeIntegrationTest
     }
 
     @Test
-    public void givenExtremeWeatherAndRegionAndVehicleType_whenGetDeliveryFee_thenReturnDeliveryFeeResponse()
+    public void givenExtremeWeatherAndRegionIsTallinnAndVehicleTypeIsBike_whenGetDeliveryFee_thenReturnErroredDeliveryFeeResponse()
             throws Exception
     {
         insertExtremeWeatherInTallinn();
@@ -71,6 +70,25 @@ public class DeliveryFeeIntegrationTest
         var bike = "Bike";
         var region = "Tallinn";
         var url = "/api/delivery-fee?region=" + region + "&vehicle_type=" + bike;
+
+        ResponseEntity<DeliveryFeeResponse> response = restTemplate.exchange(url,
+                HttpMethod.GET,
+                null,
+                DeliveryFeeResponse.class);
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getMessage()).isEqualTo(DeliveryFeeService.UNDELIVERABLE_ERROR_MESSAGE);
+    }
+
+    @Test
+    public void givenExtremeWeatherAndRegionIsTallinnAndVehicleTypeIsScooter_whenGetDeliveryFee_thenReturnErroredDeliveryFeeResponse()
+        throws Exception
+    {
+        insertExtremeWeatherInTallinn();
+
+        var scooter = "Scooter";
+        var region = "Tallinn";
+        var url = "/api/delivery-fee?region=" + region + "&vehicle_type=" + scooter;
 
         ResponseEntity<DeliveryFeeResponse> response = restTemplate.exchange(url,
                 HttpMethod.GET,
@@ -109,9 +127,9 @@ public class DeliveryFeeIntegrationTest
     private void insertExtremeWeatherInTallinn()
     {
         Region tallinn = regionRepository.findFirstByName("Tallinn")
-                .get();
+                .orElseThrow();
         WeatherPhenomenon thunder = weatherPhenomenonRepository.findByName("Thunder")
-                .get();
+                .orElseThrow();
 
         WeatherConditions extremeWeather = new WeatherConditions();
         extremeWeather.setRegion(tallinn);
@@ -122,4 +140,5 @@ public class DeliveryFeeIntegrationTest
         extremeWeather.setWindSpeedMps(25d);
         weatherConditionsRepository.save(extremeWeather);
     }
+
 }
